@@ -59,6 +59,8 @@ android {
         implementation(Dependencies.AndroidX.Compose.Material3.suite)
         implementation(Dependencies.AndroidX.Compose.Material3.window)
 
+        implementation(Dependencies.SquareUp.retrofit)
+
         implementation(Dependencies.Dagger.hilt)
         implementation(Dependencies.Dagger.hilt)
         kapt(Dependencies.Dagger.hiltCompiler)

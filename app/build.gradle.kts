@@ -58,6 +58,7 @@ dependencies {
 
     implementation(Dependencies.AndroidX.coreKtx)
     implementation(Dependencies.AndroidX.lifecycleKtx)
+
     implementation(Dependencies.AndroidX.Compose.activity)
     implementation(Dependencies.AndroidX.Compose.ui)
     implementation(Dependencies.AndroidX.Compose.preview)
@@ -69,6 +70,16 @@ dependencies {
     implementation(Dependencies.AndroidX.Compose.Material3.suite)
     implementation(Dependencies.AndroidX.Compose.Material3.adaptive)
     implementation(Dependencies.AndroidX.Compose.Material3.accompanist)
+
+    implementation(Dependencies.SquareUp.retrofit)
+    implementation(Dependencies.SquareUp.okHttp)
+    implementation(Dependencies.SquareUp.loggingInterceptor)
+    implementation(Dependencies.SquareUp.converterGson)
+
+    implementation(Dependencies.Moshi.moshi)
+    implementation(Dependencies.Moshi.kotlin)
+    implementation(Dependencies.Moshi.retrofit)
+    kapt(Dependencies.Moshi.codegen)
 
     implementation(Dependencies.JavaX.inject)
 

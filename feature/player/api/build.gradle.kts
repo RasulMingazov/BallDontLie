@@ -11,5 +11,8 @@ java {
 }
 
 dependencies {
+    implementation(project(":core:api"))
+
+    implementation(Dependencies.Moshi.retrofit)
     implementation(Dependencies.KotlinX.coroutine)
 }

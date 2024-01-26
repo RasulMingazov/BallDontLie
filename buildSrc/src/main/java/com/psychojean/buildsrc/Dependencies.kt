@@ -36,7 +36,6 @@ object Dependencies {
                 const val suite =
                     "androidx.compose.material3:material3-adaptive-navigation-suite:${Versions.AndroidX.Compose.Material3.suite}"
                 const val adaptive = "androidx.compose.material3:material3-adaptive:${Versions.AndroidX.Compose.Material3.adaptive}"
-                const val icons = "androidx.compose.material3:material3-ic:${Versions.AndroidX.Compose.Material3.adaptive}"
                 const val accompanist = "com.google.accompanist:accompanist-navigation-material:${Versions.AndroidX.Compose.Material3.accompanist}"
             }
         }
@@ -59,6 +58,22 @@ object Dependencies {
             const val compose =
                 "androidx.hilt:hilt-navigation-compose:${Versions.Dagger.Compose.compose}"
         }
+    }
+
+    object SquareUp {
+        const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.SquareUp.retrofit}"
+        const val converterGson =
+            "com.squareup.retrofit2:converter-gson:${Versions.SquareUp.retrofit}"
+        const val okHttp = "com.squareup.okhttp3:okhttp:${Versions.SquareUp.okHttp}"
+        const val loggingInterceptor =
+            "com.squareup.okhttp3:logging-interceptor:${Versions.SquareUp.okHttp}"
+    }
+
+    object Moshi {
+        const val moshi = "com.squareup.moshi:moshi:${Versions.moshi}"
+        const val kotlin = "com.squareup.moshi:moshi-kotlin:${Versions.moshi}"
+        const val retrofit = "com.squareup.retrofit2:converter-moshi:${Versions.SquareUp.retrofit}"
+        const val codegen = "com.squareup.moshi:moshi-kotlin-codegen:${Versions.moshi}"
     }
 
 }

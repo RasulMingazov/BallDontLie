@@ -12,11 +12,6 @@ object Versions {
         const val ktlint = "10.3.0"
     }
 
-    object Core {
-        const val kotlin = "1.6.21"
-        const val coroutine = "1.7.3"
-    }
-
     object AndroidX {
         const val android = "1.12.0"
         const val lifecycle = "2.7.0"
@@ -50,5 +45,12 @@ object Versions {
             const val compose = "1.1.0"
         }
     }
+
+    object SquareUp {
+        const val retrofit = "2.9.0"
+        const val okHttp = "4.10.0"
+    }
+
+    const val moshi = "1.14.0"
 
 }

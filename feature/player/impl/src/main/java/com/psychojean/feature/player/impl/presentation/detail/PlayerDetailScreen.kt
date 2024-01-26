@@ -19,7 +19,7 @@ import com.psychojean.core.impl.presentation.ui.bottom.ballBottomContentModifier
 import com.psychojean.core.impl.presentation.ui.loading.BallProgress
 import com.psychojean.core.impl.presentation.ui.stub.BallErrorStub
 import com.psychojean.core.impl.presentation.ui.text.PairText
-import com.psychojean.feature.player.api.domain.detail.model.PlayerDetailEntity
+import com.psychojean.feature.player.api.domain.detail.model.PlayerEntity
 import com.psychojean.feature.player.impl.R
 
 @Composable
@@ -59,7 +59,7 @@ internal fun PlayerDetailScreen(
 }
 
 @Composable
-private fun Success(modifier: Modifier = Modifier, detail: PlayerDetailEntity) {
+private fun Success(modifier: Modifier = Modifier, detail: PlayerEntity) {
     Column(
         modifier = modifier.wrapContentSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -106,7 +106,7 @@ private fun Error(
 @Composable
 @Preview
 private fun SuccessPreview() {
-    Success(detail = PlayerDetailEntity(0, "Michael", "Jordan"))
+    Success(detail = PlayerEntity(0, "Michael", "Jordan"))
 }
 
 @Composable
