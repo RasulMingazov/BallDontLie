@@ -5,7 +5,7 @@ import com.psychojean.feature.player.api.data.remote.PlayerRemoteDataSource
 import com.psychojean.feature.player.api.data.remote.PlayerRemoteToDataMapper
 import com.psychojean.feature.player.impl.data.remote.service.PlayerService
 
-class DefaultPlayerRemoteDataSource(
+internal class DefaultPlayerRemoteDataSource(
     private val playerService: PlayerService,
     private val playerRemoteToDataMapper: PlayerRemoteToDataMapper
 ): PlayerRemoteDataSource {

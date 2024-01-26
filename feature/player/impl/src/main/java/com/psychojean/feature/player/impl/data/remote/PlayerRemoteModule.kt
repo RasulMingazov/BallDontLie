@@ -15,7 +15,7 @@ import javax.inject.Named
 
 @Module
 @InstallIn(ViewModelComponent::class)
-class PlayerRemoteModule {
+internal class PlayerRemoteModule {
 
     @Provides
     @Named("service")

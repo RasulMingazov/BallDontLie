@@ -6,7 +6,7 @@ import com.psychojean.feature.player.api.domain.detail.model.PlayerEntity
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class DefaultPlayerDetailInteractor @Inject constructor(
+internal class DefaultPlayerDetailInteractor @Inject constructor(
     private val playerRepository: PlayerRepository
 ) : PlayerDetailInteractor {
 

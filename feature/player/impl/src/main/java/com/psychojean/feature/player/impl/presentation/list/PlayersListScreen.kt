@@ -5,13 +5,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.ViewModel
-import androidx.navigation.NavController
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
 @Composable
-fun PlayersListScreen(
+internal fun PlayersListScreen(
     modifier: Modifier,
     viewModel: PlayersListViewModel = hiltViewModel<PlayersListViewModel>(),
     onDetailClick: (id: Int) -> Unit

@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
-class DefaultPlayerRepository(
+internal class DefaultPlayerRepository(
     private val playerRemoteDataSource: PlayerRemoteDataSource,
     private val playerDataToEntityMapper: PlayerDataToEntityMapper
 ): PlayerRepository {

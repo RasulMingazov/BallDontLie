@@ -5,7 +5,7 @@ import com.psychojean.feature.player.api.data.model.TeamData
 import com.psychojean.feature.player.api.data.remote.PlayerRemoteToDataMapper
 import com.psychojean.feature.player.api.data.remote.model.PlayerRemote
 
-class DefaultPlayerRemoteToDataMapper : PlayerRemoteToDataMapper {
+internal class DefaultPlayerRemoteToDataMapper : PlayerRemoteToDataMapper {
 
     override fun map(item: PlayerRemote): PlayerData = with(item) {
         PlayerData(
