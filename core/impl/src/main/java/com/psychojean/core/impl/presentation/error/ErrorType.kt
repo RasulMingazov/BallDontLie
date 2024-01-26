@@ -23,7 +23,7 @@ abstract class ErrorType {
     }
     object Generic : ErrorType() {
         override fun title(): Int = R.string.something_went_wrong
-        override fun description(): Int = R.string.check_your_internet_connection_or_restart_the_application
+        override fun description(): Int = R.string.check_your_internet_connection_or_try_to_use_vpn
         override fun snackbar(): Int = R.string.something_went_wrong
         override fun button(): Int = R.string.refresh
         override fun icon(): Int = R.drawable.ic_error
