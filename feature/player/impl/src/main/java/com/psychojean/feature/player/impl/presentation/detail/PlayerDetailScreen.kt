@@ -48,8 +48,7 @@ internal fun PlayerDetailScreen(
             is PlayerDetailState.Reload -> Error(
                 errorType = state.errorType,
                 isButtonLoading = true
-            ) { viewModel.reload(it) }
-
+            )
             is PlayerDetailState.Error -> Error(
                 errorType = state.errorType,
                 isButtonLoading = false
