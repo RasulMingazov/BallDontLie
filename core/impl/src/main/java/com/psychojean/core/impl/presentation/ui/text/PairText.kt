@@ -17,7 +17,7 @@ fun PairText(
     modifier: Modifier = Modifier,
     firstTextModifier: Modifier = Modifier,
     secondTextModifier: Modifier = Modifier,
-    firstTextStyle: TextStyle = MaterialTheme.typography.titleLarge,
+    firstTextStyle: TextStyle = MaterialTheme.typography.titleMedium,
     secondTextStyle: TextStyle = MaterialTheme.typography.bodyMedium,
     firstText: String,
     secondText: String,

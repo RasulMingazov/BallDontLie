@@ -7,18 +7,14 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import androidx.core.view.WindowCompat
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
 import com.psychojean.balldontlie.ui.RoutesContainer
-import com.psychojean.balldontlie.ui.bottom.BottomBar
+import com.psychojean.balldontlie.ui.bottom.BallNavigationBar
 import com.psychojean.balldontlie.ui.theme.BallDontLieTheme
 import com.psychojean.core.impl.presentation.navigation.BottomTab
 import com.psychojean.core.impl.presentation.navigation.NavigationRoute
@@ -45,7 +41,7 @@ class MainActivity : ComponentActivity() {
                 val modifier = Modifier
                 Scaffold(
                     bottomBar = {
-                        BottomBar(
+                        BallNavigationBar(
                             modifier = modifier,
                             bottomTabs = bottomTabs,
                             navController = navController
@@ -53,9 +49,7 @@ class MainActivity : ComponentActivity() {
                     },
                     content = {
                         Box(
-                            modifier = modifier
-                                .padding(it)
-                                .background(MaterialTheme.colorScheme.background)
+                            modifier = modifier.background(MaterialTheme.colorScheme.background)
                         ) {
                             RoutesContainer(
                                 modifier = modifier,

@@ -20,5 +20,4 @@ fun BallErrorStub(
         isButtonLoading = isButtonLoading,
         onButtonClick = { onButtonClick(errorType) }
     )
-
 }

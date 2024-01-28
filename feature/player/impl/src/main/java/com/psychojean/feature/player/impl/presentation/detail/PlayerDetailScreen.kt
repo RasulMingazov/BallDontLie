@@ -1,9 +1,14 @@
 package com.psychojean.feature.player.impl.presentation.detail
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -15,12 +20,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.psychojean.core.impl.presentation.effect.EventEffect
 import com.psychojean.core.impl.presentation.error.ErrorType
 import com.psychojean.core.impl.presentation.ui.bottom.BallBottomSheet
-import com.psychojean.core.impl.presentation.ui.bottom.ballBottomContentModifier
-import com.psychojean.core.impl.presentation.ui.loading.BallProgress
+import com.psychojean.core.impl.presentation.ui.progress.BallProgress
 import com.psychojean.core.impl.presentation.ui.stub.BallErrorStub
 import com.psychojean.core.impl.presentation.ui.text.PairText
-import com.psychojean.feature.player.api.domain.detail.model.PlayerEntity
 import com.psychojean.feature.player.impl.R
+import com.psychojean.feature.player.impl.presentation.detail.model.PlayerModel
+import com.psychojean.feature.player.impl.presentation.detail.model.PlayerTeamModel
 
 @Composable
 internal fun PlayerDetailScreen(
@@ -37,9 +42,6 @@ internal fun PlayerDetailScreen(
     }
     BallBottomSheet(
         modifier = modifier,
-        contentModifier = modifier
-            .ballBottomContentModifier()
-            .padding(horizontal = 24.dp),
         onDismissRequest = { viewModel.dismiss() }
     ) {
         when (val state = playerState.value) {
@@ -49,6 +51,7 @@ internal fun PlayerDetailScreen(
                 errorType = state.errorType,
                 isButtonLoading = true
             )
+
             is PlayerDetailState.Error -> Error(
                 errorType = state.errorType,
                 isButtonLoading = false
@@ -58,33 +61,47 @@ internal fun PlayerDetailScreen(
 }
 
 @Composable
-private fun Success(modifier: Modifier = Modifier, detail: PlayerEntity) {
+private fun Success(modifier: Modifier = Modifier, detail: PlayerModel) {
     Column(
-        modifier = modifier.wrapContentSize(),
+        modifier = modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Top
+        verticalArrangement = Arrangement.Top,
     ) {
-        PairText(
-            modifier = Modifier.padding(vertical = 8.dp),
-            firstText = stringResource(id = R.string.id),
-            secondText = detail.id.toString()
+        Text(
+            modifier = Modifier.padding(16.dp),
+            text = detail.fullName,
+            style = MaterialTheme.typography.titleLarge
         )
         PairText(
             modifier = Modifier.padding(vertical = 8.dp),
-            firstText = stringResource(id = R.string.first_name),
-            secondText = detail.firstName
+            firstText = stringResource(id = R.string.position),
+            secondText = detail.position
         )
         PairText(
             modifier = Modifier.padding(vertical = 8.dp),
-            firstText = stringResource(id = R.string.last_name),
-            secondText = detail.lastName
+            firstText = stringResource(id = R.string.team),
+            secondText = detail.team.fullName
+        )
+        PairText(
+            modifier = Modifier.padding(vertical = 8.dp),
+            firstText = stringResource(id = R.string.height),
+            secondText = detail.height
+        )
+        PairText(
+            modifier = Modifier.padding(vertical = 8.dp),
+            firstText = stringResource(id = R.string.weight),
+            secondText = detail.weight
         )
     }
 }
 
 @Composable
 private fun Progress(modifier: Modifier = Modifier) {
-    BallProgress(modifier)
+    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        BallProgress()
+    }
 }
 
 @Composable
@@ -105,7 +122,12 @@ private fun Error(
 @Composable
 @Preview
 private fun SuccessPreview() {
-    Success(detail = PlayerEntity(0, "Michael", "Jordan"))
+    Success(
+        detail = PlayerModel(
+            0, "Tyler Dorsey", "6 feet, 182.8 cm", "183 pounds, 83.0 kg", "G",
+            PlayerTeamModel(7, "Dallas Mavericks(DAL)")
+        )
+    )
 }
 
 @Composable

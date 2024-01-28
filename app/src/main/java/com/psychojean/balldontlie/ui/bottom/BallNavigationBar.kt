@@ -9,7 +9,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.psychojean.core.impl.presentation.navigation.BottomTab
 
 @Composable
-fun BottomBar(
+fun BallNavigationBar(
     modifier: Modifier = Modifier,
     bottomTabs: List<BottomTab> = emptyList(),
     navController: NavController
@@ -17,7 +17,7 @@ fun BottomBar(
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route ?: bottomTabs.first().route
 
-    NavigationBar(modifier = Modifier) {
+    NavigationBar {
         bottomTabs.forEach { tab ->
             BottomBarItem(
                 modifier = modifier,

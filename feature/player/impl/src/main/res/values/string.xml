@@ -2,6 +2,13 @@
 <resources>
     <string name="players">Players</string>
     <string name="id">ID</string>
-    <string name="first_name">First name</string>
-    <string name="last_name">Last name</string>
+    <string name="height">Height</string>
+    <string name="position">Position</string>
+    <string name="team">Team</string>
+    <string name="weight">Weight</string>
+    <string name="feet">%s feet</string>
+    <string name="cm">%s cm</string>
+    <string name="inches">%s inches</string>
+    <string name="pounds">%s pounds</string>
+    <string name="kg">%s kg</string>
 </resources>

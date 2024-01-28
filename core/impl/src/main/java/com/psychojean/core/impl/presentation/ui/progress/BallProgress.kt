@@ -1,4 +1,4 @@
-package com.psychojean.core.impl.presentation.ui.loading
+package com.psychojean.core.impl.presentation.ui.progress
 
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
