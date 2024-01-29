@@ -68,6 +68,9 @@ dependencies {
     implementation(Dependencies.AndroidX.Compose.Material3.adaptive)
     implementation(Dependencies.AndroidX.Compose.Material3.accompanist)
 
+    implementation(Dependencies.AndroidX.Paging.runtime)
+    implementation(Dependencies.AndroidX.Paging.compose)
+
     implementation(Dependencies.JavaX.inject)
 
     implementation(Dependencies.Dagger.hilt)

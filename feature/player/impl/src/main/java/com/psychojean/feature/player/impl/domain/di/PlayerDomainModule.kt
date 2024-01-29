@@ -1,7 +1,9 @@
 package com.psychojean.feature.player.impl.domain.di
 
 import com.psychojean.feature.player.api.domain.detail.PlayerDetailInteractor
+import com.psychojean.feature.player.api.domain.list.PlayersListInteractor
 import com.psychojean.feature.player.impl.domain.detail.DefaultPlayerDetailInteractor
+import com.psychojean.feature.player.impl.domain.list.DefaultPlayersListInteractor
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -15,4 +17,9 @@ internal abstract class PlayerDomainModule {
     abstract fun bindPlayerDetailInteractor(
         interactor: DefaultPlayerDetailInteractor
     ): PlayerDetailInteractor
+
+    @Binds
+    abstract fun bindPlayersListInteractor(
+        interactor: DefaultPlayersListInteractor
+    ): PlayersListInteractor
 }

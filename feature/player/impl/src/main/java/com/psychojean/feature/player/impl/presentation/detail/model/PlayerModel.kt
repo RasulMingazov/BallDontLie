@@ -1,6 +1,6 @@
 package com.psychojean.feature.player.impl.presentation.detail.model
 
-data class PlayerModel(
+internal data class PlayerModel(
     val id: Int,
     val fullName: String,
     val height: String,

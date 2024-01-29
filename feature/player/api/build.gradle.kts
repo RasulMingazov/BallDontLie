@@ -3,6 +3,7 @@ import com.psychojean.buildsrc.Dependencies
 plugins {
     id("java-library")
     id("org.jetbrains.kotlin.jvm")
+    kotlin("kapt")
 }
 
 java {
@@ -15,4 +16,6 @@ dependencies {
 
     implementation(Dependencies.Moshi.retrofit)
     implementation(Dependencies.KotlinX.coroutine)
+    implementation(Dependencies.AndroidX.Paging.common)
+    kapt(Dependencies.AndroidX.Paging.commonKtx)
 }

@@ -15,6 +15,7 @@ object Versions {
     object AndroidX {
         const val android = "1.12.0"
         const val lifecycle = "2.7.0"
+        const val paging = "3.2.1"
 
         object Compose {
             const val compose = "1.5.4"

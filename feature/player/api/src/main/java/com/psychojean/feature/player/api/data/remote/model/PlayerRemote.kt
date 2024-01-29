@@ -5,7 +5,7 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class PlayerRemote(
-    @Json(name = "id") val id: Int?,
+    @Json(name = "id") val id: Int,
     @Json(name = "first_name") val firstName: String?,
     @Json(name = "last_name") val lastName: String?,
     @Json(name = "position") val position: String?,

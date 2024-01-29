@@ -1,7 +1,6 @@
 package com.psychojean.feature.player.impl.presentation.detail
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -20,8 +19,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.psychojean.core.impl.presentation.effect.EventEffect
 import com.psychojean.core.impl.presentation.error.ErrorType
 import com.psychojean.core.impl.presentation.ui.bottom.BallBottomSheet
-import com.psychojean.core.impl.presentation.ui.progress.BallProgress
 import com.psychojean.core.impl.presentation.ui.stub.BallErrorStub
+import com.psychojean.core.impl.presentation.ui.stub.BallProgressStub
 import com.psychojean.core.impl.presentation.ui.text.PairText
 import com.psychojean.feature.player.impl.R
 import com.psychojean.feature.player.impl.presentation.detail.model.PlayerModel
@@ -99,9 +98,7 @@ private fun Success(modifier: Modifier = Modifier, detail: PlayerModel) {
 
 @Composable
 private fun Progress(modifier: Modifier = Modifier) {
-    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        BallProgress()
-    }
+    BallProgressStub(modifier)
 }
 
 @Composable

@@ -18,6 +18,13 @@ object Dependencies {
         const val lifecycleKtx =
             "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.AndroidX.lifecycle}"
 
+        object Paging {
+            const val runtime = "androidx.paging:paging-runtime:${Versions.AndroidX.paging}"
+            const val common = "androidx.paging:paging-common:${Versions.AndroidX.paging}"
+            const val commonKtx = "androidx.paging:paging-common-ktx:${Versions.AndroidX.paging}"
+            const val compose = "androidx.paging:paging-compose:${Versions.AndroidX.paging}"
+        }
+
         object Compose {
             const val activity =
                 "androidx.activity:activity-compose:${Versions.AndroidX.Compose.activity}"
@@ -75,5 +82,4 @@ object Dependencies {
         const val retrofit = "com.squareup.retrofit2:converter-moshi:${Versions.SquareUp.retrofit}"
         const val codegen = "com.squareup.moshi:moshi-kotlin-codegen:${Versions.moshi}"
     }
-
 }

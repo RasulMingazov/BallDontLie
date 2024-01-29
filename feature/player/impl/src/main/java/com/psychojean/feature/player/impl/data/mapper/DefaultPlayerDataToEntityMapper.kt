@@ -16,15 +16,17 @@ internal class DefaultPlayerDataToEntityMapper: PlayerDataToEntityMapper {
             heightInches,
             weightPounds,
             position,
-            TeamEntity(
-                team.id,
-                team.name,
-                team.fullName,
-                team.division,
-                team.abbreviation,
-                team.conference,
-                team.city
-            )
+            team?.let { team ->
+                TeamEntity(
+                    team.id,
+                    team.name,
+                    team.fullName,
+                    team.division,
+                    team.abbreviation,
+                    team.conference,
+                    team.city
+                )
+            }
         )
     }
 }

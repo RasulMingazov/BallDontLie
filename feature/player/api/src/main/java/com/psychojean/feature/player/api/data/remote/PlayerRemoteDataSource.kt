@@ -4,5 +4,10 @@ import com.psychojean.feature.player.api.data.model.PlayerData
 
 interface PlayerRemoteDataSource {
 
+    suspend fun players(
+       page: Int,
+        perPage: Int,
+    ): List<PlayerData>
+
     suspend fun player(id: Int): PlayerData
 }

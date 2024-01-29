@@ -58,6 +58,9 @@ android {
         implementation(Dependencies.AndroidX.Compose.Material3.adaptive)
         implementation(Dependencies.AndroidX.Compose.Material3.suite)
         implementation(Dependencies.AndroidX.Compose.Material3.window)
+        implementation(Dependencies.AndroidX.Paging.common)
+        implementation(Dependencies.AndroidX.Paging.commonKtx)
+        kapt(Dependencies.AndroidX.Paging.commonKtx)
 
         implementation(Dependencies.SquareUp.retrofit)
 
