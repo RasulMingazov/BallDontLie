@@ -29,7 +29,7 @@ fun BallErrorFooter(
             modifier = Modifier.align(Alignment.Center),
             text = stringResource(id = errorType.title()),
             style = MaterialTheme.typography.bodySmall,
-            textAlign = TextAlign.End,
+            textAlign = TextAlign.End
         )
     }
 }

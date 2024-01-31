@@ -20,7 +20,7 @@ fun PairText(
     firstTextStyle: TextStyle = MaterialTheme.typography.titleMedium,
     secondTextStyle: TextStyle = MaterialTheme.typography.bodyMedium,
     firstText: String,
-    secondText: String,
+    secondText: String
 ) {
     Row(
         modifier = modifier.wrapContentSize(),

@@ -9,7 +9,7 @@ import com.psychojean.core.impl.presentation.error.ErrorTypeMapper
 import com.psychojean.core.impl.presentation.error.di.ErrorQualifier
 import com.psychojean.core.impl.presentation.paging.PagingStateListener
 import com.psychojean.feature.player.api.domain.list.PlayersListInteractor
-import com.psychojean.feature.player.impl.presentation.detail.model.mapper.DefaultPlayerEntityToModelMapper
+import com.psychojean.feature.player.impl.presentation.detail.model.mapper.PlayerEntityToModelMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,7 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 internal class PlayersListViewModel @Inject constructor(
     playersListInteractor: PlayersListInteractor,
-    private val playerEntityToModelMapper: DefaultPlayerEntityToModelMapper,
+    private val playerEntityToModelMapper: PlayerEntityToModelMapper,
     @ErrorQualifier private val errorTypeMapper: ErrorTypeMapper,
     private val dispatcher: Dispatcher
 ) : ViewModel(), PagingStateListener {
