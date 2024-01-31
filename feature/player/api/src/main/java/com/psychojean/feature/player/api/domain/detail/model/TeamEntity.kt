@@ -1,11 +1,16 @@
 package com.psychojean.feature.player.api.domain.detail.model
 
-data class TeamEntity(
-    val id: Int,
-    val name: String?,
-    val fullName: String?,
-    val division: String?,
-    val abbreviation: String?,
-    val conference: String?,
-    val city: String?
-)
+sealed class TeamEntity {
+
+    data class Exist(
+        val id: Int,
+        val name: NameEntity,
+        val division: DivisionEntity,
+        val abbreviation: AbbreviationEntity,
+        val conference: ConferenceEntity,
+        val city: CityEntity
+    ): TeamEntity()
+
+    data object NotExist: TeamEntity()
+}
+

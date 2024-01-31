@@ -24,7 +24,6 @@ import com.psychojean.core.impl.presentation.ui.stub.BallProgressStub
 import com.psychojean.core.impl.presentation.ui.text.PairText
 import com.psychojean.feature.player.impl.R
 import com.psychojean.feature.player.impl.presentation.detail.model.PlayerModel
-import com.psychojean.feature.player.impl.presentation.detail.model.PlayerTeamModel
 
 @Composable
 internal fun PlayerDetailScreen(
@@ -39,90 +38,98 @@ internal fun PlayerDetailScreen(
             is PlayerDetailEvent.Dismiss -> onBackPressed()
         }
     }
+
     BallBottomSheet(
         modifier = modifier,
-        onDismissRequest = { viewModel.dismiss() }
+        onDismissRequest = viewModel::dismiss
     ) {
-        when (val state = playerState.value) {
-            is PlayerDetailState.Success -> Success(detail = state.player)
-            is PlayerDetailState.Loading -> Progress()
-            is PlayerDetailState.Reload -> Error(
-                errorType = state.errorType,
-                isButtonLoading = true
-            )
-
-            is PlayerDetailState.Error -> Error(
-                errorType = state.errorType,
-                isButtonLoading = false
-            ) { viewModel.reload(it) }
-        }
+        PlayerDetailScreenContent(
+            playerState = playerState.value,
+            onRefreshClick = viewModel::refresh
+        )
     }
 }
 
 @Composable
-private fun Success(modifier: Modifier = Modifier, detail: PlayerModel) {
+private fun PlayerDetailScreenContent(
+    modifier: Modifier = Modifier,
+    playerState: PlayerDetailState,
+    onRefreshClick: (errorType: ErrorType) -> Unit = {}
+) {
+    when (playerState) {
+        is PlayerDetailState.Loading -> BallProgressStub(modifier = modifier)
+        is PlayerDetailState.Success -> Success(
+            modifier = modifier,
+            player = playerState.player
+        )
+
+        is PlayerDetailState.Refresh -> BallErrorStub(
+            modifier = modifier,
+            errorType = playerState.errorType,
+            isButtonLoading = true
+        )
+
+        is PlayerDetailState.Error -> BallErrorStub(
+            modifier = modifier,
+            errorType = playerState.errorType,
+            isButtonLoading = false,
+            onButtonClick = { onRefreshClick(it) }
+        )
+    }
+}
+
+@Composable
+private fun Success(modifier: Modifier = Modifier, player: PlayerModel) {
     Column(
         modifier = modifier
             .fillMaxSize()
+            .padding(horizontal = 24.dp)
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top,
     ) {
         Text(
             modifier = Modifier.padding(16.dp),
-            text = detail.fullName,
+            text = player.fullName,
             style = MaterialTheme.typography.titleLarge
         )
         PairText(
             modifier = Modifier.padding(vertical = 8.dp),
             firstText = stringResource(id = R.string.position),
-            secondText = detail.position
+            secondText = player.position
         )
         PairText(
             modifier = Modifier.padding(vertical = 8.dp),
             firstText = stringResource(id = R.string.team),
-            secondText = detail.team.fullName
+            secondText = player.teamName
         )
         PairText(
             modifier = Modifier.padding(vertical = 8.dp),
             firstText = stringResource(id = R.string.height),
-            secondText = detail.height
+            secondText = player.height
         )
         PairText(
             modifier = Modifier.padding(vertical = 8.dp),
             firstText = stringResource(id = R.string.weight),
-            secondText = detail.weight
+            secondText = player.weight
         )
     }
 }
 
 @Composable
-private fun Progress(modifier: Modifier = Modifier) {
-    BallProgressStub(modifier)
-}
-
-@Composable
-private fun Error(
-    modifier: Modifier = Modifier,
-    errorType: ErrorType,
-    isButtonLoading: Boolean,
-    onButtonClick: (errorType: ErrorType) -> Unit = {}
-) {
-    BallErrorStub(
-        modifier = modifier,
-        errorType = errorType,
-        isButtonLoading = isButtonLoading,
-        onButtonClick = onButtonClick
-    )
-}
-
-@Composable
 @Preview
 private fun SuccessPreview() {
-    Success(
-        detail = PlayerModel(
-            0, "Tyler Dorsey", "6 feet, 182.8 cm", "183 pounds, 83.0 kg", "G",
-            PlayerTeamModel(7, "Dallas Mavericks(DAL)")
+    PlayerDetailScreenContent(
+        playerState = PlayerDetailState.Success(
+            player = PlayerModel(
+                0,
+                "Tyler Dorsey",
+                "6 feet, 182.8 cm",
+                "183 pounds, 83.0 kg",
+                "G",
+                0,
+                "Chicago"
+            )
         )
     )
 }
@@ -130,18 +137,17 @@ private fun SuccessPreview() {
 @Composable
 @Preview
 private fun ErrorPreview() {
-    Error(errorType = ErrorType.Generic, isButtonLoading = false)
+    PlayerDetailScreenContent(playerState = PlayerDetailState.Error(ErrorType.Generic))
 }
 
 @Composable
 @Preview
 private fun ReloadPreview() {
-    Error(errorType = ErrorType.Generic, isButtonLoading = true)
+    PlayerDetailScreenContent(playerState = PlayerDetailState.Refresh(ErrorType.Generic))
 }
-
 
 @Composable
 @Preview
 private fun ProgressPreview() {
-    Progress()
+    PlayerDetailScreenContent(playerState = PlayerDetailState.Loading)
 }

@@ -2,7 +2,7 @@ package com.psychojean.feature.player.impl.data
 
 import androidx.paging.PagingData
 import com.psychojean.core.impl.data.BaseRepository
-import com.psychojean.feature.player.api.data.model.PlayerDataToEntityMapper
+import com.psychojean.feature.player.api.data.model.player.PlayerDataToEntityMapper
 import com.psychojean.feature.player.api.data.remote.PlayerRemoteDataSource
 import com.psychojean.feature.player.api.domain.PlayerRepository
 import com.psychojean.feature.player.api.domain.detail.model.PlayerEntity

@@ -1,7 +1,5 @@
 package com.psychojean.core.impl.presentation.ui.bottom
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
@@ -24,8 +22,6 @@ fun BallBottomSheet(
         shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
         onDismissRequest = { onDismissRequest() },
     ) {
-        Box(
-            modifier = Modifier.padding(horizontal = 24.dp)
-        ) { content() }
+        content()
     }
 }

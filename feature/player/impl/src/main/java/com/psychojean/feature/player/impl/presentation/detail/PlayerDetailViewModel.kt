@@ -44,9 +44,9 @@ internal class PlayerDetailViewModel @Inject constructor(
         }
     }
 
-    fun reload(errorType: ErrorType) {
+    fun refresh(errorType: ErrorType) {
         dispatcher.launchBackground(viewModelScope) {
-            fetch().onStart { _state.value = PlayerDetailState.Reload(errorType) }.collect()
+            fetch().onStart { _state.value = PlayerDetailState.Refresh(errorType) }.collect()
         }
     }
 

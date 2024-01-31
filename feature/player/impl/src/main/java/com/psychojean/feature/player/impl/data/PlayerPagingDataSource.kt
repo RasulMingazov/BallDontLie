@@ -1,7 +1,7 @@
 package com.psychojean.feature.player.impl.data
 
 import com.psychojean.core.impl.data.paging.BasePagingDataSource
-import com.psychojean.feature.player.api.data.model.PlayerDataToEntityMapper
+import com.psychojean.feature.player.api.data.model.player.PlayerDataToEntityMapper
 import com.psychojean.feature.player.api.data.remote.PlayerRemoteDataSource
 import com.psychojean.feature.player.api.domain.detail.model.PlayerEntity
 

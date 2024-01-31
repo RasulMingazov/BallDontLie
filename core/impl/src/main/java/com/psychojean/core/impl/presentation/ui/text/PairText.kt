@@ -41,7 +41,7 @@ fun PairText(
                 .align(Alignment.CenterVertically),
             text = secondText,
             style = secondTextStyle,
-            textAlign = TextAlign.End
+            textAlign = TextAlign.End,
         )
     }
 }

@@ -30,7 +30,8 @@ fun BallProgressButton(
             BallProgressInButton(
                 Modifier
                     .padding(horizontal = 24.dp)
-                    .size(16.dp))
+                    .size(16.dp)
+            )
         else
             Text(
                 modifier = Modifier.padding(horizontal = 24.dp),

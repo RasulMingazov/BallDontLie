@@ -7,9 +7,13 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
@@ -38,21 +42,24 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController(bottomSheetNavigator)
                 val childRoutes = listOf<NavigationRoute>(PlayerNavigationRoute)
                 val bottomTabs = listOf<BottomTab>(PlayerBottomTab)
-                val modifier = Modifier
                 Scaffold(
                     bottomBar = {
                         BallNavigationBar(
-                            modifier = modifier,
                             bottomTabs = bottomTabs,
                             navController = navController
                         )
                     },
-                    content = {
+                    content = { padding ->
                         Box(
-                            modifier = modifier.background(MaterialTheme.colorScheme.background)
+                            modifier = Modifier
+                                .padding(
+                                    bottom = padding.calculateBottomPadding(),
+                                    start = padding.calculateStartPadding(LayoutDirection.Ltr),
+                                    end = padding.calculateEndPadding(LayoutDirection.Rtl)
+                                )
+                                .background(MaterialTheme.colorScheme.background)
                         ) {
                             RoutesContainer(
-                                modifier = modifier,
                                 navController = navController,
                                 bottomSheetNavigator = bottomSheetNavigator,
                                 routes = childRoutes

@@ -6,7 +6,7 @@ import com.psychojean.feature.player.impl.presentation.detail.model.PlayerModel
 
 internal sealed class PlayerDetailState {
     data object Loading : PlayerDetailState()
-    data class Reload(val errorType: ErrorType) : PlayerDetailState()
+    data class Refresh(val errorType: ErrorType) : PlayerDetailState()
     data class Success(val player: PlayerModel) : PlayerDetailState()
     data class Error(val errorType: ErrorType) : PlayerDetailState()
 }

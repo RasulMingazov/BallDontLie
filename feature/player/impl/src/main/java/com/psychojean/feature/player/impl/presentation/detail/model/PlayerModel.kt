@@ -6,5 +6,6 @@ internal data class PlayerModel(
     val height: String,
     val weight: String,
     val position: String,
-    val team: PlayerTeamModel
+    val teamId: Int,
+    val teamName: String
 )

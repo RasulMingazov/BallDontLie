@@ -25,7 +25,6 @@ fun RoutesContainer(
         ) {
             routes.forEach { route ->
                 route.register(
-                    modifier = modifier,
                     navGraphBuilder = this,
                     navController = navController
                 )

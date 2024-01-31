@@ -1,6 +1,6 @@
 package com.psychojean.feature.player.api.data.remote
 
-import com.psychojean.feature.player.api.data.model.PlayerData
+import com.psychojean.feature.player.api.data.model.player.PlayerData
 
 interface PlayerRemoteDataSource {
 
