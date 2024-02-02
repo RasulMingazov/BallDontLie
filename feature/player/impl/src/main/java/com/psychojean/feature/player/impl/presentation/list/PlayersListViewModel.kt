@@ -12,6 +12,7 @@ import com.psychojean.feature.player.api.domain.list.PlayersListInteractor
 import com.psychojean.feature.player.impl.presentation.detail.model.mapper.PlayerEntityToModelMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
@@ -35,7 +36,8 @@ internal class PlayersListViewModel @Inject constructor(
     private val _state = MutableStateFlow<PlayersListState>(PlayersListState.Loading)
     val state = _state.asStateFlow()
 
-    private val _appendState = MutableStateFlow<PlayersListAppendState>(PlayersListAppendState.NotLoading)
+    private val _appendState =
+        MutableStateFlow<PlayersListAppendState>(PlayersListAppendState.NotLoading)
     val appendState = _appendState.asStateFlow()
 
     private val _event = Channel<PlayersListEvent>()
@@ -68,6 +70,14 @@ internal class PlayersListViewModel @Inject constructor(
     fun retry() {
         dispatcher.launchUI(viewModelScope) {
             _event.send(PlayersListEvent.Retry)
+        }
+    }
+
+    fun refresh() {
+        dispatcher.launchUI(viewModelScope) {
+            _event.send(PlayersListEvent.Refresh)
+            delay(1500)
+            _event.send(PlayersListEvent.EndRefresh)
         }
     }
 }

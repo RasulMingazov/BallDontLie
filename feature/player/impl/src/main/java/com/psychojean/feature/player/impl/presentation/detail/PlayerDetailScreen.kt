@@ -117,8 +117,8 @@ private fun Success(modifier: Modifier = Modifier, player: PlayerModel) {
 }
 
 @Composable
-@Preview
-private fun SuccessPreview() {
+@Preview(showSystemUi = true, showBackground = true)
+private fun SuccessScreenPreview() {
     PlayerDetailScreenContent(
         playerState = PlayerDetailState.Success(
             player = PlayerModel(
@@ -135,19 +135,19 @@ private fun SuccessPreview() {
 }
 
 @Composable
-@Preview
+@Preview(showSystemUi = true, showBackground = true)
 private fun ErrorPreview() {
     PlayerDetailScreenContent(playerState = PlayerDetailState.Error(ErrorType.Generic))
 }
 
 @Composable
-@Preview
+@Preview(showSystemUi = true, showBackground = true)
 private fun ReloadPreview() {
     PlayerDetailScreenContent(playerState = PlayerDetailState.Refresh(ErrorType.Generic))
 }
 
 @Composable
-@Preview
+@Preview(showSystemUi = true, showBackground = true)
 private fun ProgressPreview() {
     PlayerDetailScreenContent(playerState = PlayerDetailState.Loading)
 }

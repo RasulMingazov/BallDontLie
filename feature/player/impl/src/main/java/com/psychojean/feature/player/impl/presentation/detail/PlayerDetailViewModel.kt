@@ -30,6 +30,7 @@ internal class PlayerDetailViewModel @Inject constructor(
     saveStateKey: SaveStateKey<Int>
 ) : ViewModel() {
 
+
     private val id = saveStateKey.value(PlayerDetailNavigationRoute.idArgumentKey)
 
     private val _state = MutableStateFlow<PlayerDetailState>(PlayerDetailState.Loading)

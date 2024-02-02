@@ -1,11 +1,15 @@
 package com.psychojean.feature.player.impl.presentation.list
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.pulltorefresh.PullToRefreshState
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
@@ -21,6 +25,7 @@ import com.psychojean.core.impl.presentation.effect.EventEffect
 import com.psychojean.core.impl.presentation.error.ErrorType
 import com.psychojean.core.impl.presentation.paging.PagingStateListener
 import com.psychojean.core.impl.presentation.paging.listenPagingLoadState
+import com.psychojean.core.impl.presentation.refresh.RefreshContainer
 import com.psychojean.core.impl.presentation.ui.footer.BallErrorFooter
 import com.psychojean.core.impl.presentation.ui.footer.BallProgressFooter
 import com.psychojean.core.impl.presentation.ui.stub.BallErrorStub
@@ -31,6 +36,7 @@ import com.psychojean.feature.player.impl.R
 import com.psychojean.feature.player.impl.presentation.detail.model.PlayerModel
 import kotlinx.coroutines.flow.flowOf
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun PlayersListScreen(
     modifier: Modifier,
@@ -41,9 +47,14 @@ internal fun PlayersListScreen(
     val playersAppendState = viewModel.appendState.collectAsState()
     val playersPagingItems = viewModel.players.collectAsLazyPagingItems()
 
+    val pullToRefreshState = rememberPullToRefreshState()
+    if (pullToRefreshState.isRefreshing) viewModel.refresh()
+
     EventEffect(flow = viewModel.event) { playerDetailEvent ->
         when (playerDetailEvent) {
             is PlayersListEvent.Retry -> playersPagingItems.retry()
+            is PlayersListEvent.Refresh -> playersPagingItems.refresh()
+            is PlayersListEvent.EndRefresh -> { pullToRefreshState.endRefresh() }
         }
     }
 
@@ -56,6 +67,7 @@ internal fun PlayersListScreen(
                 playersAppendState = playersAppendState.value,
                 playersPagingItems = playersPagingItems,
                 pagingStateListener = viewModel,
+                pullToRefreshState = pullToRefreshState,
                 onDetailClick = onDetailClick,
                 onRetryClick = { viewModel.retry() }
             )
@@ -63,6 +75,7 @@ internal fun PlayersListScreen(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun PlayersListScreenContent(
     modifier: Modifier = Modifier,
@@ -70,44 +83,49 @@ private fun PlayersListScreenContent(
     playersAppendState: PlayersListAppendState,
     playersPagingItems: LazyPagingItems<PlayerModel>,
     pagingStateListener: PagingStateListener,
+    pullToRefreshState: PullToRefreshState,
     onDetailClick: (id: Int) -> Unit = {},
     onRetryClick: (errorType: ErrorType) -> Unit = {}
 ) {
-    LazyColumn(modifier = modifier) {
-        listenPagingLoadState(playersPagingItems.loadState, pagingStateListener)
+    RefreshContainer(
+        modifier = modifier,
+        pullToRefreshState = pullToRefreshState
+    ) {
+        LazyColumn(modifier = Modifier) {
+            listenPagingLoadState(playersPagingItems.loadState, pagingStateListener)
 
-        item {
-            when (playersListState) {
-                is PlayersListState.NotLoading -> Unit
-                is PlayersListState.Loading -> BallProgressStub(Modifier.fillParentMaxSize())
-                is PlayersListState.Error ->
-                    BallErrorStub(
-                        modifier = Modifier.fillParentMaxSize(),
-                        errorType = playersListState.errorType,
-                        onButtonClick = onRetryClick
-                    )
+            item {
+                when (playersListState) {
+                    is PlayersListState.NotLoading -> Unit
+                    is PlayersListState.Loading -> BallProgressStub(Modifier.fillParentMaxSize())
+                    is PlayersListState.Error ->
+                        BallErrorStub(
+                            modifier = Modifier.fillParentMaxSize(),
+                            errorType = playersListState.errorType,
+                            onButtonClick = onRetryClick
+                        )
+                }
             }
-        }
 
-        items(
-            count = playersPagingItems.itemCount,
-            key = playersPagingItems.itemKey { player -> player.id }) { index ->
-            playersPagingItems[index]?.let { player ->
-                PlayerCell(player = player, onDetailClick = onDetailClick)
-                HorizontalDivider(thickness = 0.25.dp)
+            items(
+                count = playersPagingItems.itemCount,
+                key = playersPagingItems.itemKey { player -> player.id }) { index ->
+                playersPagingItems[index]?.let { player ->
+                    PlayerCell(player = player, onDetailClick = onDetailClick)
+                    HorizontalDivider(thickness = 0.25.dp)
+                }
             }
-        }
 
-        item {
-            when (playersAppendState) {
-                is PlayersListAppendState.Loading -> BallProgressFooter()
-                is PlayersListAppendState.Error -> BallErrorFooter(errorType = playersAppendState.errorType)
-                is PlayersListAppendState.NotLoading -> Unit
+            item {
+                when (playersAppendState) {
+                    is PlayersListAppendState.Loading -> BallProgressFooter()
+                    is PlayersListAppendState.Error -> BallErrorFooter(errorType = playersAppendState.errorType)
+                    is PlayersListAppendState.NotLoading -> Unit
+                }
             }
         }
     }
 }
-
 
 @Composable
 private fun PlayerCell(
@@ -127,27 +145,12 @@ private fun PlayerCell(
 
 @Composable
 @Preview
-private fun SuccessPreview() {
-    val playersList = mutableListOf<PlayerModel>()
-    for (i in 0..100) {
-        playersList.add(
-            PlayerModel(
-                i,
-                "Tyler Dorsey",
-                "6 feet, 182.8 cm",
-                "183 pounds, 83.0 kg",
-                "G",
-                0,
-                "Chicago"
-            )
-        )
+private fun PlayerCellsPreview() {
+    Column {
+        for (i in 0..100) {
+            PlayerCellPreview()
+        }
     }
-    PlayersListScreenContent(
-        playersListState = PlayersListState.NotLoading,
-        playersAppendState = PlayersListAppendState.NotLoading,
-        playersPagingItems = flowOf(PagingData.from(playersList)).collectAsLazyPagingItems(),
-        pagingStateListener = object : PagingStateListener {}
-    )
 }
 
 @Composable
@@ -166,24 +169,55 @@ private fun PlayerCellPreview() {
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@Preview
-private fun ErrorPreview() {
+@Preview(showBackground = true, showSystemUi = true)
+private fun SuccessScreenPreview() {
+    val playersList = mutableListOf<PlayerModel>()
+    for (i in 0..100) {
+        playersList.add(
+            PlayerModel(
+                i,
+                "Tyler Dorsey",
+                "6 feet, 182.8 cm",
+                "183 pounds, 83.0 kg",
+                "G",
+                0,
+                "Chicago"
+            )
+        )
+    }
     PlayersListScreenContent(
-        playersListState = PlayersListState.Error(ErrorType.Generic),
+        playersListState = PlayersListState.NotLoading,
         playersAppendState = PlayersListAppendState.NotLoading,
-        playersPagingItems = flowOf(PagingData.from(listOf<PlayerModel>())).collectAsLazyPagingItems(),
+        playersPagingItems = flowOf(PagingData.from(playersList)).collectAsLazyPagingItems(),
+        pullToRefreshState = rememberPullToRefreshState(),
         pagingStateListener = object : PagingStateListener {}
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@Preview
-private fun ProgressPreview() {
+@Preview(showBackground = true, showSystemUi = true)
+private fun ErrorScreenPreview() {
+    PlayersListScreenContent(
+        playersListState = PlayersListState.Error(ErrorType.Generic),
+        playersAppendState = PlayersListAppendState.NotLoading,
+        playersPagingItems = flowOf(PagingData.from(listOf<PlayerModel>())).collectAsLazyPagingItems(),
+        pullToRefreshState = rememberPullToRefreshState(),
+        pagingStateListener = object : PagingStateListener {}
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+@Preview(showBackground = true, showSystemUi = true)
+private fun ProgressScreenPreview() {
     PlayersListScreenContent(
         playersListState = PlayersListState.Loading,
         playersAppendState = PlayersListAppendState.NotLoading,
         playersPagingItems = flowOf(PagingData.from(listOf<PlayerModel>())).collectAsLazyPagingItems(),
+        pullToRefreshState = rememberPullToRefreshState(),
         pagingStateListener = object : PagingStateListener {}
     )
 }
