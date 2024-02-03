@@ -2,7 +2,7 @@ package com.psychojean.feature.player.api.domain.detail.model
 
 data class PlayerEntity(
     val id: Int,
-    val name: NameEntity,
+    val name: String,
     val position: PositionEntity,
     val height: HeightEntity,
     val weight: WeightEntity,

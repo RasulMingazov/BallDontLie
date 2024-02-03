@@ -1,7 +1,6 @@
 package com.psychojean.feature.player.impl.data.mapper
 
 import com.psychojean.feature.player.api.data.model.height.HeightDataToEntityMapper
-import com.psychojean.feature.player.api.data.model.name.NameDataToEntityMapper
 import com.psychojean.feature.player.api.data.model.player.PlayerData
 import com.psychojean.feature.player.api.data.model.player.PlayerDataToEntityMapper
 import com.psychojean.feature.player.api.data.model.position.PositionDataToEntityMapper
@@ -10,7 +9,6 @@ import com.psychojean.feature.player.api.data.model.weight.WeightDataToEntityMap
 import com.psychojean.feature.player.api.domain.detail.model.PlayerEntity
 
 internal class DefaultPlayerDataToEntityMapper(
-    private val nameDataToEntityMapper: NameDataToEntityMapper,
     private val positionDataToEntityMapper: PositionDataToEntityMapper,
     private val heightDataToEntityMapper: HeightDataToEntityMapper,
     private val weightDataToEntityMapper: WeightDataToEntityMapper,
@@ -20,7 +18,7 @@ internal class DefaultPlayerDataToEntityMapper(
     override fun map(item: PlayerData): PlayerEntity = with(item) {
         PlayerEntity(
             id,
-            nameDataToEntityMapper.map(name),
+            name,
             positionDataToEntityMapper.map(position),
             heightDataToEntityMapper.map(height),
             weightDataToEntityMapper.map(weight),
