@@ -41,8 +41,7 @@ internal class TeamsListViewModel @Inject constructor(
 
     fun refresh() {
         dispatcher.launchBackground(viewModelScope) {
-            fetch().onStart { _event.send(TeamsListEvent.Refresh) }
-                .onEach { _event.send(TeamsListEvent.EndRefresh) }.collect()
+            fetch().onStart { _event.send(TeamsListEvent.Refresh) }.collect()
         }
     }
 
@@ -54,6 +53,9 @@ internal class TeamsListViewModel @Inject constructor(
 
     private fun fetch() = teamsListInteractor.players()
         .map { it.map(teamEntityToModelMapper::map) }
-        .onEach { _state.value = TeamsListState.Success(it) }
+        .onEach {
+            _state.value = TeamsListState.Success(it)
+            _event.send(TeamsListEvent.EndRefresh)
+        }
         .catch { _state.value = TeamsListState.Error(errorTypeMapper.map(it)) }
 }

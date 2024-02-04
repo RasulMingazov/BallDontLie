@@ -1,5 +1,8 @@
 package com.psychojean.feature.player.impl.presentation.detail.model
 
+import androidx.compose.runtime.Immutable
+
+@Immutable
 internal data class PlayerModel(
     val id: Int,
     val fullName: String,
