@@ -29,6 +29,9 @@
             <option value="$PROJECT_DIR$/feature/player" />
             <option value="$PROJECT_DIR$/feature/player/api" />
             <option value="$PROJECT_DIR$/feature/player/impl" />
+            <option value="$PROJECT_DIR$/feature/team" />
+            <option value="$PROJECT_DIR$/feature/team/api" />
+            <option value="$PROJECT_DIR$/feature/team/impl" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

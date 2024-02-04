@@ -20,10 +20,10 @@ import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
 import com.psychojean.balldontlie.ui.RoutesContainer
 import com.psychojean.balldontlie.ui.bottom.BallNavigationBar
 import com.psychojean.balldontlie.ui.theme.BallDontLieTheme
-import com.psychojean.core.impl.presentation.navigation.BottomTab
-import com.psychojean.core.impl.presentation.navigation.NavigationRoute
 import com.psychojean.feature.player.impl.presentation.navigation.PlayerBottomTab
 import com.psychojean.feature.player.impl.presentation.navigation.PlayerNavigationRoute
+import com.psychojean.feature.team.impl.presentation.navigation.TeamBottomTab
+import com.psychojean.feature.team.impl.presentation.navigation.TeamNavigationRoute
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -40,8 +40,10 @@ class MainActivity : ComponentActivity() {
             BallDontLieTheme {
                 val bottomSheetNavigator = rememberBottomSheetNavigator()
                 val navController = rememberNavController(bottomSheetNavigator)
-                val childRoutes = listOf<NavigationRoute>(PlayerNavigationRoute)
-                val bottomTabs = listOf<BottomTab>(PlayerBottomTab)
+
+                val childRoutes = arrayListOf(PlayerNavigationRoute, TeamNavigationRoute)
+                val bottomTabs = arrayListOf(PlayerBottomTab, TeamBottomTab)
+
                 Scaffold(
                     bottomBar = {
                         BallNavigationBar(

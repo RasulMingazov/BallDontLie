@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="teams">Teams</string>
+    <string name="city">City</string>
+    <string name="conference">Conference</string>
+    <string name="division">Division</string>
+</resources>

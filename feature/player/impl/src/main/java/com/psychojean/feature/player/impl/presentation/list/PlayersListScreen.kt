@@ -40,7 +40,7 @@ import kotlinx.coroutines.flow.flowOf
 @Composable
 internal fun PlayersListScreen(
     modifier: Modifier,
-    viewModel: PlayersListViewModel = hiltViewModel<PlayersListViewModel>(),
+    viewModel: PlayersListViewModel = hiltViewModel(),
     onDetailClick: (id: Int) -> Unit
 ) {
     val playersState = viewModel.state.collectAsState()
@@ -53,8 +53,11 @@ internal fun PlayersListScreen(
     EventEffect(flow = viewModel.event) { playerDetailEvent ->
         when (playerDetailEvent) {
             is PlayersListEvent.Retry -> playersPagingItems.retry()
-            is PlayersListEvent.Refresh -> playersPagingItems.refresh()
-            is PlayersListEvent.EndRefresh -> { pullToRefreshState.endRefresh() }
+            is PlayersListEvent.EndRefresh -> pullToRefreshState.endRefresh()
+            is PlayersListEvent.Refresh -> {
+                pullToRefreshState.startRefresh()
+                playersPagingItems.refresh()
+            }
         }
     }
 
@@ -135,9 +138,9 @@ private fun PlayerCell(
 ) {
     PairText(
         modifier = modifier
+            .clickable { onDetailClick(player.id) }
             .padding(vertical = 20.dp, horizontal = 24.dp)
-            .fillMaxWidth()
-            .clickable { onDetailClick(player.id) },
+            .fillMaxWidth(),
         firstText = player.fullName,
         secondText = player.position
     )

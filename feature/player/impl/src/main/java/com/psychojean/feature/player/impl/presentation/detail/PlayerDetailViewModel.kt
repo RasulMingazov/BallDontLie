@@ -30,7 +30,6 @@ internal class PlayerDetailViewModel @Inject constructor(
     saveStateKey: SaveStateKey<Int>
 ) : ViewModel() {
 
-
     private val id = saveStateKey.value(PlayerDetailNavigationRoute.idArgumentKey)
 
     private val _state = MutableStateFlow<PlayerDetailState>(PlayerDetailState.Loading)
@@ -45,9 +44,9 @@ internal class PlayerDetailViewModel @Inject constructor(
         }
     }
 
-    fun refresh(errorType: ErrorType) {
+    fun retry(errorType: ErrorType) {
         dispatcher.launchBackground(viewModelScope) {
-            fetch().onStart { _state.value = PlayerDetailState.Refresh(errorType) }.collect()
+            fetch().onStart { _state.value = PlayerDetailState.Retry(errorType) }.collect()
         }
     }
 

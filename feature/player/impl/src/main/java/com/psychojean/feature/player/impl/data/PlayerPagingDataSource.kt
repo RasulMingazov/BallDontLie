@@ -5,7 +5,7 @@ import com.psychojean.feature.player.api.data.model.player.PlayerDataToEntityMap
 import com.psychojean.feature.player.api.data.remote.PlayerRemoteDataSource
 import com.psychojean.feature.player.api.domain.detail.model.PlayerEntity
 
-class PlayerPagingDataSource(
+internal class PlayerPagingDataSource(
     private val playerRemoteDataSource: PlayerRemoteDataSource,
     private val playerDataToEntityMapper: PlayerDataToEntityMapper
 ) : BasePagingDataSource<PlayerEntity>() {

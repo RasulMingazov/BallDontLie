@@ -6,6 +6,7 @@ import com.psychojean.feature.player.api.data.remote.PlayerRemoteDataSource
 import com.psychojean.feature.player.api.data.remote.PlayerRemoteToDataMapper
 import com.psychojean.feature.player.impl.data.remote.service.PlayerService
 import com.psychojean.feature.player.impl.data.remote.service.PlayerServiceDecorator
+import com.psychojean.feature.team.api.data.remote.TeamRemoteToDataMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,7 +30,8 @@ internal class PlayerRemoteModule {
     ): PlayerService = PlayerServiceDecorator(service, serverExceptionMapper)
 
     @Provides
-    fun providePlayerRemoteToDataMapper(): PlayerRemoteToDataMapper = DefaultPlayerRemoteToDataMapper()
+    fun providePlayerRemoteToDataMapper(teamRemoteToDataMapper: TeamRemoteToDataMapper): PlayerRemoteToDataMapper =
+        DefaultPlayerRemoteToDataMapper(teamRemoteToDataMapper)
 
     @Provides
     fun providePlayerRemoteDataSource(

@@ -1,6 +1,6 @@
-package com.psychojean.feature.player.api.domain.detail.model
+package com.psychojean.feature.team.api.data.model
 
-data class TeamEntity(
+data class TeamData(
     val id: Int,
     val name: String,
     val division: String,
@@ -8,4 +8,3 @@ data class TeamEntity(
     val conference: String,
     val city: String
 )
-

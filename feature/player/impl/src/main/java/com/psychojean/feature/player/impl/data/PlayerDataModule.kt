@@ -3,15 +3,14 @@ package com.psychojean.feature.player.impl.data
 import com.psychojean.feature.player.api.data.model.height.HeightDataToEntityMapper
 import com.psychojean.feature.player.api.data.model.player.PlayerDataToEntityMapper
 import com.psychojean.feature.player.api.data.model.position.PositionDataToEntityMapper
-import com.psychojean.feature.player.api.data.model.team.TeamDataToEntityMapper
 import com.psychojean.feature.player.api.data.model.weight.WeightDataToEntityMapper
 import com.psychojean.feature.player.api.data.remote.PlayerRemoteDataSource
 import com.psychojean.feature.player.api.domain.PlayerRepository
 import com.psychojean.feature.player.impl.data.mapper.DefaultHeightDataToEntityMapper
 import com.psychojean.feature.player.impl.data.mapper.DefaultPlayerDataToEntityMapper
 import com.psychojean.feature.player.impl.data.mapper.DefaultPositionDataToEntityMapper
-import com.psychojean.feature.player.impl.data.mapper.DefaultTeamDataToEntityMapper
 import com.psychojean.feature.player.impl.data.mapper.DefaultWeightDataToEntityMapper
+import com.psychojean.feature.team.api.data.model.TeamDataToEntityMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,11 +32,6 @@ internal class PlayerDataModule {
     @Provides
     fun provideWeightDataToEntityMapper(): WeightDataToEntityMapper =
         DefaultWeightDataToEntityMapper()
-
-    @Provides
-    fun provideTeamDataToEntityMapper(
-    ): TeamDataToEntityMapper =
-        DefaultTeamDataToEntityMapper
 
     @Provides
     fun providePlayerDataToEntityMapper(

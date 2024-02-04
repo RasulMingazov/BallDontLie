@@ -1,4 +1,4 @@
-package com.psychojean.feature.player.impl.domain.di
+package com.psychojean.feature.player.impl.domain
 
 import com.psychojean.feature.player.api.domain.detail.PlayerDetailInteractor
 import com.psychojean.feature.player.api.domain.list.PlayersListInteractor

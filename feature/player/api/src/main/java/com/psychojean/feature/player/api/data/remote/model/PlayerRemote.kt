@@ -1,5 +1,6 @@
 package com.psychojean.feature.player.api.data.remote.model
 
+import com.psychojean.feature.team.api.data.remote.model.TeamRemote
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 

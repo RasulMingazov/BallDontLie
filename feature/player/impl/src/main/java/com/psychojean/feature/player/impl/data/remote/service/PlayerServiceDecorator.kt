@@ -5,7 +5,7 @@ import com.psychojean.core.impl.data.BaseApiDecorator
 import com.psychojean.feature.player.api.data.remote.model.PlayerRemote
 import com.psychojean.feature.player.api.data.remote.model.PlayersRemote
 
-class PlayerServiceDecorator(
+internal class PlayerServiceDecorator(
     private val service: PlayerService,
     serverExceptionMapper: ServerExceptionMapper
 ) : BaseApiDecorator(serverExceptionMapper), PlayerService by service {

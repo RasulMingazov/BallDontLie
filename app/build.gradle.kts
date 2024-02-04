@@ -56,6 +56,9 @@ dependencies {
     implementation(project(":feature:player:impl"))
     api(project(":feature:player:api"))
 
+    implementation(project(":feature:team:impl"))
+    api(project(":feature:team:api"))
+
     implementation(Dependencies.AndroidX.coreKtx)
     implementation(Dependencies.AndroidX.lifecycleKtx)
 

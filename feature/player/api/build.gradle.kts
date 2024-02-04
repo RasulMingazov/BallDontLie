@@ -12,7 +12,8 @@ java {
 }
 
 dependencies {
-    implementation(project(":core:api"))
+    api(project(":core:api"))
+    api(project(":feature:team:api"))
 
     implementation(Dependencies.Moshi.retrofit)
     implementation(Dependencies.KotlinX.coroutine)

@@ -45,7 +45,7 @@ internal fun PlayerDetailScreen(
     ) {
         PlayerDetailScreenContent(
             playerState = playerState.value,
-            onRefreshClick = viewModel::refresh
+            onRetryClick = viewModel::retry
         )
     }
 }
@@ -54,7 +54,7 @@ internal fun PlayerDetailScreen(
 private fun PlayerDetailScreenContent(
     modifier: Modifier = Modifier,
     playerState: PlayerDetailState,
-    onRefreshClick: (errorType: ErrorType) -> Unit = {}
+    onRetryClick: (errorType: ErrorType) -> Unit = {}
 ) {
     when (playerState) {
         is PlayerDetailState.Loading -> BallProgressStub(modifier = modifier)
@@ -63,7 +63,7 @@ private fun PlayerDetailScreenContent(
             player = playerState.player
         )
 
-        is PlayerDetailState.Refresh -> BallErrorStub(
+        is PlayerDetailState.Retry -> BallErrorStub(
             modifier = modifier,
             errorType = playerState.errorType,
             isButtonLoading = true
@@ -73,7 +73,7 @@ private fun PlayerDetailScreenContent(
             modifier = modifier,
             errorType = playerState.errorType,
             isButtonLoading = false,
-            onButtonClick = { onRefreshClick(it) }
+            onButtonClick = { onRetryClick(it) }
         )
     }
 }
@@ -143,7 +143,7 @@ private fun ErrorPreview() {
 @Composable
 @Preview(showSystemUi = true, showBackground = true)
 private fun ReloadPreview() {
-    PlayerDetailScreenContent(playerState = PlayerDetailState.Refresh(ErrorType.Generic))
+    PlayerDetailScreenContent(playerState = PlayerDetailState.Retry(ErrorType.Generic))
 }
 
 @Composable

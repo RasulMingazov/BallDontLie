@@ -1,6 +1,6 @@
-package com.psychojean.feature.player.api.data.model.team
+package com.psychojean.feature.team.impl.presentation.model
 
-data class TeamData(
+internal data class TeamModel(
     val id: Int,
     val name: String,
     val division: String,
