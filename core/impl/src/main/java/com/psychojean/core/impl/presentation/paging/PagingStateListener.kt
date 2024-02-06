@@ -8,6 +8,10 @@ interface PagingStateListener {
 
     fun loadingFinished() = Unit
 
+}
+
+interface PagingAppendListener {
+
     fun appendLoadingError(throwable: Throwable) = Unit
 
     fun appendLoadingStarted() = Unit

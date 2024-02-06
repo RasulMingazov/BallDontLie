@@ -10,6 +10,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -17,7 +18,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.psychojean.core.impl.presentation.effect.EventEffect
-import com.psychojean.core.impl.presentation.error.ErrorType
 import com.psychojean.core.impl.presentation.ui.bottom.BallBottomSheet
 import com.psychojean.core.impl.presentation.ui.stub.BallErrorStub
 import com.psychojean.core.impl.presentation.ui.stub.BallProgressStub
@@ -31,7 +31,7 @@ internal fun PlayerDetailScreen(
     viewModel: PlayerDetailViewModel = hiltViewModel<PlayerDetailViewModel>(),
     onBackPressed: () -> Unit
 ) {
-    val playerState = viewModel.state.collectAsState()
+    val playerState by viewModel.state.collectAsState()
 
     EventEffect(flow = viewModel.event) { playerDetailEvent ->
         when (playerDetailEvent) {
@@ -43,43 +43,21 @@ internal fun PlayerDetailScreen(
         modifier = modifier,
         onDismissRequest = viewModel::dismiss
     ) {
-        PlayerDetailScreenContent(
-            playerState = playerState.value,
-            onRetryClick = viewModel::retry
-        )
+        when {
+            playerState.player != null -> Player(player = playerState.player!!)
+            playerState.isLoading -> BallProgressStub(modifier = modifier)
+            playerState.error != null -> BallErrorStub(
+                errorType = playerState.error!!,
+                isButtonLoading = playerState.isRetry,
+                onButtonClick = viewModel::retry
+            )
+        }
     }
 }
 
-@Composable
-private fun PlayerDetailScreenContent(
-    modifier: Modifier = Modifier,
-    playerState: PlayerDetailState,
-    onRetryClick: (errorType: ErrorType) -> Unit = {}
-) {
-    when (playerState) {
-        is PlayerDetailState.Loading -> BallProgressStub(modifier = modifier)
-        is PlayerDetailState.Success -> Success(
-            modifier = modifier,
-            player = playerState.player
-        )
-
-        is PlayerDetailState.Retry -> BallErrorStub(
-            modifier = modifier,
-            errorType = playerState.errorType,
-            isButtonLoading = true
-        )
-
-        is PlayerDetailState.Error -> BallErrorStub(
-            modifier = modifier,
-            errorType = playerState.errorType,
-            isButtonLoading = false,
-            onButtonClick = { onRetryClick(it) }
-        )
-    }
-}
 
 @Composable
-private fun Success(modifier: Modifier = Modifier, player: PlayerModel) {
+private fun Player(modifier: Modifier = Modifier, player: PlayerModel) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -118,36 +96,16 @@ private fun Success(modifier: Modifier = Modifier, player: PlayerModel) {
 
 @Composable
 @Preview(showSystemUi = true, showBackground = true)
-private fun SuccessScreenPreview() {
-    PlayerDetailScreenContent(
-        playerState = PlayerDetailState.Success(
-            player = PlayerModel(
-                0,
-                "Tyler Dorsey",
-                "6 feet, 182.8 cm",
-                "183 pounds, 83.0 kg",
-                "G",
-                0,
-                "Chicago"
-            )
+private fun PlayerPreview() {
+    Player(
+        player = PlayerModel(
+            0,
+            "Tyler Dorsey",
+            "6 feet, 182.8 cm",
+            "183 pounds, 83.0 kg",
+            "G",
+            0,
+            "Chicago"
         )
     )
-}
-
-@Composable
-@Preview(showSystemUi = true, showBackground = true)
-private fun ErrorPreview() {
-    PlayerDetailScreenContent(playerState = PlayerDetailState.Error(ErrorType.Generic))
-}
-
-@Composable
-@Preview(showSystemUi = true, showBackground = true)
-private fun ReloadPreview() {
-    PlayerDetailScreenContent(playerState = PlayerDetailState.Retry(ErrorType.Generic))
-}
-
-@Composable
-@Preview(showSystemUi = true, showBackground = true)
-private fun ProgressPreview() {
-    PlayerDetailScreenContent(playerState = PlayerDetailState.Loading)
 }

@@ -10,4 +10,3 @@ data class PlayerEntity(
     val weight: WeightEntity,
     val team: TeamEntity
 )
-

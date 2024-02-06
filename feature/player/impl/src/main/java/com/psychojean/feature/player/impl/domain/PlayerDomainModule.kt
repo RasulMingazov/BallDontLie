@@ -1,8 +1,8 @@
 package com.psychojean.feature.player.impl.domain
 
-import com.psychojean.feature.player.api.domain.detail.PlayerDetailInteractor
 import com.psychojean.feature.player.api.domain.list.PlayersListInteractor
 import com.psychojean.feature.player.impl.domain.detail.DefaultPlayerDetailInteractor
+import com.psychojean.feature.player.impl.domain.detail.PlayerDetailInteractor
 import com.psychojean.feature.player.impl.domain.list.DefaultPlayersListInteractor
 import dagger.Binds
 import dagger.Module

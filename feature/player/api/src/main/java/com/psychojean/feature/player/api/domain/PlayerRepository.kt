@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface PlayerRepository {
 
-    fun player(id: Int): Flow<PlayerEntity>
+    suspend fun player(id: Int): PlayerEntity
 
     fun players(): Flow<PagingData<PlayerEntity>>
 }

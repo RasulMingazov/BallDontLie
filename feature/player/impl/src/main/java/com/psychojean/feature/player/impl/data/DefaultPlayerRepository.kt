@@ -6,18 +6,18 @@ import com.psychojean.feature.player.api.data.model.player.PlayerDataToEntityMap
 import com.psychojean.feature.player.api.data.remote.PlayerRemoteDataSource
 import com.psychojean.feature.player.api.domain.PlayerRepository
 import com.psychojean.feature.player.api.domain.detail.model.PlayerEntity
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 
 internal class DefaultPlayerRepository(
     private val playerRemoteDataSource: PlayerRemoteDataSource,
     private val playerDataToEntityMapper: PlayerDataToEntityMapper
 ) : PlayerRepository, BaseRepository() {
 
-    override fun player(id: Int): Flow<PlayerEntity> = flow {
-        emit(playerRemoteDataSource.player(id))
-    }.map(playerDataToEntityMapper::map)
+    override suspend fun player(id: Int) = withContext(Dispatchers.IO) {
+        playerDataToEntityMapper.map(playerRemoteDataSource.player(id))
+    }
 
     override fun players(): Flow<PagingData<PlayerEntity>> =
         doPagingRequest(PlayerPagingDataSource(playerRemoteDataSource, playerDataToEntityMapper))
