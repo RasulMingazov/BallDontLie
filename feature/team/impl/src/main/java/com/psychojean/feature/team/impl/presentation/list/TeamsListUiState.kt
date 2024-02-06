@@ -1,6 +1,6 @@
 package com.psychojean.feature.team.impl.presentation.list
 
-import com.psychojean.core.impl.presentation.error.ErrorType
+import com.psychojean.core.api.error.ErrorType
 import com.psychojean.feature.team.impl.presentation.model.TeamModel
 
 @androidx.compose.runtime.Immutable

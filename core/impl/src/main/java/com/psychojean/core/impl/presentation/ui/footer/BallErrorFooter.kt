@@ -12,7 +12,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.psychojean.core.impl.presentation.error.ErrorType
+import com.psychojean.core.api.error.ErrorType
 
 @Composable
 fun BallErrorFooter(
@@ -27,7 +27,7 @@ fun BallErrorFooter(
     ) {
         Text(
             modifier = Modifier.align(Alignment.Center),
-            text = stringResource(id = errorType.title()),
+            text = stringResource(id = errorType.title),
             style = MaterialTheme.typography.bodySmall,
             textAlign = TextAlign.End
         )

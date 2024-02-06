@@ -27,7 +27,7 @@ import com.psychojean.core.impl.presentation.ui.stub.BallProgressStub
 import com.psychojean.core.impl.presentation.ui.text.PairText
 import com.psychojean.core.impl.presentation.ui.topbar.BallTopBar
 import com.psychojean.feature.player.impl.R
-import com.psychojean.feature.player.impl.presentation.detail.model.PlayerModel
+import com.psychojean.feature.player.impl.presentation.model.PlayerModel
 import com.psychojean.feature.player.impl.presentation.list.footer.AppendFooter
 
 @OptIn(ExperimentalMaterial3Api::class)

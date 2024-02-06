@@ -1,7 +1,7 @@
 package com.psychojean.feature.player.impl.presentation.list.footer
 
 import androidx.lifecycle.ViewModel
-import com.psychojean.core.impl.presentation.error.ErrorTypeMapper
+import com.psychojean.core.api.error.ErrorTypeMapper
 import com.psychojean.core.impl.presentation.error.di.ErrorQualifier
 import com.psychojean.core.impl.presentation.paging.PagingAppendListener
 import dagger.hilt.android.lifecycle.HiltViewModel

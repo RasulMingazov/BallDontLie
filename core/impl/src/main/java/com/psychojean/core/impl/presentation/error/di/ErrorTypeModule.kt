@@ -1,6 +1,7 @@
 package com.psychojean.core.impl.presentation.error.di
 
-import com.psychojean.core.impl.presentation.error.ErrorTypeMapper
+import com.psychojean.core.api.error.ErrorTypeMapper
+import com.psychojean.core.impl.presentation.error.DefaultErrorTypeMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,7 +13,7 @@ class ErrorTypeModule {
 
     @Provides
     @ErrorQualifier
-    fun provideErrorTypeMapper(): ErrorTypeMapper = ErrorTypeMapper.Default()
+    fun provideErrorTypeMapper(): ErrorTypeMapper = DefaultErrorTypeMapper
 
 
 }

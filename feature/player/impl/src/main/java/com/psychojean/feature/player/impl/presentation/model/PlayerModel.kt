@@ -1,4 +1,4 @@
-package com.psychojean.feature.player.impl.presentation.detail.model
+package com.psychojean.feature.player.impl.presentation.model
 
 import androidx.compose.runtime.Immutable
 

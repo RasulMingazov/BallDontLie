@@ -23,7 +23,8 @@ import com.psychojean.core.impl.presentation.ui.stub.BallErrorStub
 import com.psychojean.core.impl.presentation.ui.stub.BallProgressStub
 import com.psychojean.core.impl.presentation.ui.text.PairText
 import com.psychojean.feature.player.impl.R
-import com.psychojean.feature.player.impl.presentation.detail.model.PlayerModel
+import com.psychojean.feature.player.impl.presentation.detail.state.PlayerDetailEvent
+import com.psychojean.feature.player.impl.presentation.model.PlayerModel
 
 @Composable
 internal fun PlayerDetailScreen(

@@ -2,13 +2,13 @@ package com.psychojean.feature.player.impl.presentation.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.psychojean.core.api.exceptionOrThrow
-import com.psychojean.core.impl.presentation.error.ErrorType
-import com.psychojean.core.impl.presentation.error.ErrorTypeMapper
-import com.psychojean.core.impl.presentation.error.di.ErrorQualifier
+import com.psychojean.core.api.error.ErrorType
 import com.psychojean.core.impl.presentation.save.SaveStateKey
-import com.psychojean.feature.player.impl.domain.detail.PlayerDetailInteractor
-import com.psychojean.feature.player.impl.presentation.detail.model.mapper.PlayerEntityToModelMapper
+import com.psychojean.feature.player.api.domain.detail.PlayerDetailInteractor
+import com.psychojean.feature.player.api.domain.detail.PlayerResult
+import com.psychojean.feature.player.impl.presentation.detail.state.PlayerDetailEvent
+import com.psychojean.feature.player.impl.presentation.detail.state.PlayerDetailUiState
+import com.psychojean.feature.player.impl.presentation.model.mapper.PlayerEntityToModelMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,8 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 internal class PlayerDetailViewModel @Inject constructor(
     private val playerDetailInteractor: PlayerDetailInteractor,
-    @ErrorQualifier private val errorTypeMapper: ErrorTypeMapper,
-    private val playerEntityToModelMapper: PlayerEntityToModelMapper,
+    private val playerDetailEntityToModelMapper: PlayerEntityToModelMapper,
     saveStateKey: SaveStateKey<Int>
 ) : ViewModel() {
 
@@ -41,15 +40,16 @@ internal class PlayerDetailViewModel @Inject constructor(
     fun dismiss() = viewModelScope.launch { _event.send(PlayerDetailEvent.Dismiss) }
 
     fun retry(errorType: ErrorType) = viewModelScope.launch {
-        _state.update { it.toRetry(errorType) }
+        _state.update { uiState -> uiState.toRetry(errorType) }
         fetch()
     }
 
     private suspend fun fetch() = _state.update { uiState ->
-        val playerResult = playerDetailInteractor.player(id)
-        if (playerResult.isSuccess)
-            uiState.toPlayer(playerEntityToModelMapper.map(playerResult.getOrThrow()))
-        else
-            uiState.toError(errorTypeMapper.map(playerResult.exceptionOrThrow()))
+        when (val playerResult = playerDetailInteractor.player(id)) {
+            is PlayerResult.Error -> uiState.toError(playerResult.errorType)
+            is PlayerResult.Success -> uiState.toPlayer(
+                playerDetailEntityToModelMapper.map(playerResult.player)
+            )
+        }
     }
 }

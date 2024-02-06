@@ -1,8 +1,8 @@
-package com.psychojean.feature.player.impl.presentation.detail
+package com.psychojean.feature.player.impl.presentation.detail.state
 
 import androidx.compose.runtime.Immutable
-import com.psychojean.core.impl.presentation.error.ErrorType
-import com.psychojean.feature.player.impl.presentation.detail.model.PlayerModel
+import com.psychojean.core.api.error.ErrorType
+import com.psychojean.feature.player.impl.presentation.model.PlayerModel
 
 @Immutable
 internal data class PlayerDetailUiState(
@@ -15,8 +15,7 @@ internal data class PlayerDetailUiState(
     fun toRetry(errorType: ErrorType): PlayerDetailUiState = copy(
         isLoading = false,
         isRetry = true,
-        error = errorType,
-        player = null
+        error = errorType
     )
 
     fun toPlayer(player: PlayerModel): PlayerDetailUiState = copy(
@@ -29,7 +28,6 @@ internal data class PlayerDetailUiState(
     fun toError(errorType: ErrorType) = copy(
         isLoading = false,
         isRetry = false,
-        error = errorType,
-        player = null
+        error = errorType
     )
 }

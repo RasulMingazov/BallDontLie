@@ -1,6 +1,6 @@
 package com.psychojean.feature.player.impl.presentation.list
 
-import com.psychojean.core.impl.presentation.error.ErrorType
+import com.psychojean.core.api.error.ErrorType
 
 internal data class PlayerListUiState(
     val isLoading: Boolean = true,

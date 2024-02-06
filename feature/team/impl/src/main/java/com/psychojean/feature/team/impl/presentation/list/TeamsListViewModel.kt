@@ -2,9 +2,9 @@ package com.psychojean.feature.team.impl.presentation.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.psychojean.core.api.error.ErrorType
+import com.psychojean.core.api.error.ErrorTypeMapper
 import com.psychojean.core.api.exceptionOrThrow
-import com.psychojean.core.impl.presentation.error.ErrorType
-import com.psychojean.core.impl.presentation.error.ErrorTypeMapper
 import com.psychojean.core.impl.presentation.error.di.ErrorQualifier
 import com.psychojean.feature.team.impl.domain.list.TeamsListInteractor
 import com.psychojean.feature.team.impl.presentation.model.mapper.TeamEntityToModelMapper

@@ -1,8 +1,8 @@
 package com.psychojean.feature.player.impl.presentation.di
 
 import com.psychojean.core.api.TextProvider
-import com.psychojean.feature.player.impl.presentation.detail.model.mapper.DefaultPlayerEntityToModelMapper
-import com.psychojean.feature.player.impl.presentation.detail.model.mapper.PlayerEntityToModelMapper
+import com.psychojean.feature.player.impl.presentation.model.mapper.DefaultPlayerEntityToModelMapper
+import com.psychojean.feature.player.impl.presentation.model.mapper.PlayerEntityToModelMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

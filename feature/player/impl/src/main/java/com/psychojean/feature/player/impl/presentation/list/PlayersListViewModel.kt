@@ -4,11 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import androidx.paging.map
-import com.psychojean.core.impl.presentation.error.ErrorTypeMapper
+import com.psychojean.core.api.error.ErrorTypeMapper
 import com.psychojean.core.impl.presentation.error.di.ErrorQualifier
 import com.psychojean.core.impl.presentation.paging.PagingStateListener
 import com.psychojean.feature.player.impl.domain.list.PlayersListInteractor
-import com.psychojean.feature.player.impl.presentation.detail.model.mapper.PlayerEntityToModelMapper
+import com.psychojean.feature.player.impl.presentation.model.mapper.PlayerEntityToModelMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay

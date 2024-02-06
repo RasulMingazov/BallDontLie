@@ -3,7 +3,7 @@ package com.psychojean.core.impl.presentation.ui.stub
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import com.psychojean.core.impl.presentation.error.ErrorType
+import com.psychojean.core.api.error.ErrorType
 
 @Composable
 fun BallErrorStub(
@@ -14,9 +14,9 @@ fun BallErrorStub(
 ) {
     BallStub(
         modifier = modifier,
-        titleText = stringResource(errorType.title()),
-        descriptionText = stringResource(errorType.description()),
-        buttonText = stringResource(errorType.button()),
+        titleText = stringResource(errorType.title),
+        descriptionText = stringResource(errorType.description),
+        buttonText = stringResource(errorType.button),
         isButtonLoading = isButtonLoading,
         onButtonClick = { onButtonClick(errorType) }
     )
