@@ -38,21 +38,18 @@ internal class PlayerDetailViewModel @Inject constructor(
         viewModelScope.launch { fetch() }
     }
 
-    fun dismiss() {
-        viewModelScope.launch { _event.send(PlayerDetailEvent.Dismiss) }
+    fun dismiss() = viewModelScope.launch { _event.send(PlayerDetailEvent.Dismiss) }
+
+    fun retry(errorType: ErrorType) = viewModelScope.launch {
+        _state.update { it.toRetry(errorType) }
+        fetch()
     }
 
-    fun retry(errorType: ErrorType) {
-        viewModelScope.launch {
-            _state.update { it.toRetry(errorType) }
-            fetch()
-        }
-    }
-
-    private suspend fun fetch() {
+    private suspend fun fetch() = _state.update { uiState ->
         val playerResult = playerDetailInteractor.player(id)
         if (playerResult.isSuccess)
-            _state.update { it.toPlayer(playerEntityToModelMapper.map(playerResult.getOrThrow())) }
-        else _state.update { it.toError(errorTypeMapper.map(playerResult.exceptionOrThrow())) }
+            uiState.toPlayer(playerEntityToModelMapper.map(playerResult.getOrThrow()))
+        else
+            uiState.toError(errorTypeMapper.map(playerResult.exceptionOrThrow()))
     }
 }

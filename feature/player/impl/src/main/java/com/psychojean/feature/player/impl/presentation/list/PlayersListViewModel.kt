@@ -38,26 +38,22 @@ internal class PlayersListViewModel @Inject constructor(
     val event = _event.receiveAsFlow()
 
     override fun loadingError(throwable: Throwable) {
-        _state.update { it.toError(errorTypeMapper.map(throwable)) }
+        _state.update { uiState -> uiState.toError(errorTypeMapper.map(throwable)) }
     }
 
     override fun loadingStarted() {
-        _state.update { it.toLoading() }
+        _state.update { uiState -> uiState.toLoading() }
     }
 
     override fun loadingFinished() {
-        _state.update { it.toLoadingFinished() }
+        _state.update { uiState -> uiState.toLoadingFinished() }
     }
 
-    fun retry() {
-        viewModelScope.launch { _event.send(PlayersListEvent.Retry) }
-    }
+    fun retry() = viewModelScope.launch { _event.send(PlayersListEvent.Retry) }
 
-    fun refresh() {
-        viewModelScope.launch {
-            _event.send(PlayersListEvent.Refresh)
-            delay(1500)
-            _event.send(PlayersListEvent.EndRefresh)
-        }
+    fun refresh() = viewModelScope.launch {
+        _event.send(PlayersListEvent.Refresh)
+        delay(1500)
+        _event.send(PlayersListEvent.EndRefresh)
     }
 }
