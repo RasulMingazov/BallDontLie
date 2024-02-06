@@ -1,6 +1,7 @@
 package com.psychojean.feature.player.impl.presentation.list
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -104,6 +105,16 @@ private fun PlayerCell(
         firstText = player.fullName,
         secondText = player.position
     )
+}
+
+@Composable
+@Preview
+private fun PlayerCellsPreview() {
+    Column {
+        for (i in 0..100) {
+            PlayerCellPreview()
+        }
+    }
 }
 
 @Composable

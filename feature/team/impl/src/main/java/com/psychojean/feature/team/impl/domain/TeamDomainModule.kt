@@ -1,7 +1,7 @@
 package com.psychojean.feature.team.impl.domain
 
-import com.psychojean.feature.team.api.domain.list.TeamsListInteractor
 import com.psychojean.feature.team.impl.domain.list.DefaultTeamsListInteractor
+import com.psychojean.feature.team.impl.domain.list.TeamsListInteractor
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

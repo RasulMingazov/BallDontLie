@@ -7,7 +7,7 @@ import androidx.paging.map
 import com.psychojean.core.impl.presentation.error.ErrorTypeMapper
 import com.psychojean.core.impl.presentation.error.di.ErrorQualifier
 import com.psychojean.core.impl.presentation.paging.PagingStateListener
-import com.psychojean.feature.player.api.domain.list.PlayersListInteractor
+import com.psychojean.feature.player.impl.domain.list.PlayersListInteractor
 import com.psychojean.feature.player.impl.presentation.detail.model.mapper.PlayerEntityToModelMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel

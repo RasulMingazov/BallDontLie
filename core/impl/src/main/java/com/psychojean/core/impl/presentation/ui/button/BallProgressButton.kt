@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -20,13 +21,14 @@ fun BallProgressButton(
     isButtonLoading: Boolean,
     onButtonClick: () -> Unit = {}
 ) {
-    val isLoading = remember { mutableStateOf(isButtonLoading) }
+    val isLoading by remember(isButtonLoading) { mutableStateOf(isButtonLoading) }
+
 
     Button(
         modifier = modifier,
-        onClick = { if (!isLoading.value) onButtonClick() }
+        onClick = { if (!isLoading) onButtonClick() }
     ) {
-        if (isLoading.value)
+        if (isLoading)
             BallProgressInButton(
                 Modifier
                     .padding(horizontal = 24.dp)
