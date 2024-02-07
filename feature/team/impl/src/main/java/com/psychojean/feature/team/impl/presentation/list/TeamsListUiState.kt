@@ -8,27 +8,43 @@ internal data class TeamsListUiState(
     val isLoading: Boolean = true,
     val isRetry: Boolean = false,
     val error: ErrorType? = null,
-    val teams: List<TeamModel> = emptyList(),
+    var teams: List<TeamModel>? = null,
+    val isTeamsEmpty: Boolean = false,
+    val isRefreshAvailable: Boolean = false
 ) {
 
     fun toRetry(errorType: ErrorType): TeamsListUiState = copy(
         isLoading = false,
+        isRefreshAvailable = false,
         isRetry = true,
         error = errorType,
-        teams = emptyList()
+        teams = null
     )
 
     fun toTeams(teams: List<TeamModel>): TeamsListUiState = copy(
         teams = teams,
         isLoading = false,
+        isRefreshAvailable = true,
         isRetry = false,
+        isTeamsEmpty = false,
         error = null
     )
 
     fun toError(errorType: ErrorType) = copy(
         isLoading = false,
         isRetry = false,
+        isRefreshAvailable = false,
         error = errorType,
-        teams = emptyList()
+        isTeamsEmpty = false,
+        teams = null
+    )
+
+    fun toEmpty() = copy(
+        isLoading = false,
+        isRetry = false,
+        isRefreshAvailable = true,
+        error = null,
+        isTeamsEmpty = true,
+        teams = null
     )
 }

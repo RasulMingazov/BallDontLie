@@ -1,4 +1,4 @@
-package com.psychojean.feature.team.impl.data.remote
+package com.psychojean.feature.team.impl.data.remote.mapper
 
 import com.psychojean.feature.team.api.data.model.TeamData
 import com.psychojean.feature.team.api.data.remote.TeamRemoteToDataMapper
@@ -13,7 +13,8 @@ internal object DefaultTeamRemoteToDataMapper : TeamRemoteToDataMapper {
             division,
             abbreviation,
             conference,
-            city
+            city,
+            false
         )
     }
 }

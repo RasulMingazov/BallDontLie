@@ -5,6 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import com.psychojean.core.impl.presentation.navigation.NavigationRoute
 import com.psychojean.feature.team.impl.presentation.list.TeamsListNavigationRoute
+import com.psychojean.feature.team.impl.presentation.starred.StarredTeamsListNavigationRoute
 
 object TeamNavigationRoute : NavigationRoute {
 
@@ -15,7 +16,7 @@ object TeamNavigationRoute : NavigationRoute {
         navGraphBuilder: NavGraphBuilder,
         navController: NavHostController
     ) {
-        val childRoutes = arrayListOf(TeamsListNavigationRoute)
+        val childRoutes = arrayListOf(TeamsListNavigationRoute, StarredTeamsListNavigationRoute)
         childRoutes.forEach { screen ->
             screen.register(
                 modifier = modifier,

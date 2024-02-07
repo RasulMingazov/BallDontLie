@@ -9,11 +9,12 @@ internal object DefaultTeamEntityToModelMapper :
     override fun map(item: TeamEntity): TeamModel = with(item) {
         TeamModel(
             id,
-            name,
+            "$name ($abbreviation)",
             division,
             abbreviation,
             conference,
-            city
+            city,
+            isStarred
         )
     }
 }

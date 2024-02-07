@@ -67,6 +67,7 @@ dependencies {
     implementation(Dependencies.AndroidX.Compose.Material3.suite)
     implementation(Dependencies.AndroidX.Compose.Material3.adaptive)
     implementation(Dependencies.AndroidX.Compose.Material3.accompanist)
+    implementation(Dependencies.AndroidX.Compose.material)
 
     implementation(Dependencies.JavaX.inject)
 

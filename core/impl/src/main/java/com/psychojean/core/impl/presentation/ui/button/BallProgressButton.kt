@@ -23,7 +23,6 @@ fun BallProgressButton(
 ) {
     val isLoading by remember(isButtonLoading) { mutableStateOf(isButtonLoading) }
 
-
     Button(
         modifier = modifier,
         onClick = { if (!isLoading) onButtonClick() }

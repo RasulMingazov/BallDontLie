@@ -2,6 +2,8 @@ package com.psychojean.feature.team.impl.domain
 
 import com.psychojean.feature.team.impl.domain.list.DefaultTeamsListInteractor
 import com.psychojean.feature.team.impl.domain.list.TeamsListInteractor
+import com.psychojean.feature.team.impl.domain.starred.DefaultStarredTeamsListInteractor
+import com.psychojean.feature.team.impl.domain.starred.StarredTeamsListInteractor
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -15,4 +17,9 @@ internal abstract class TeamDomainModule {
     abstract fun bindTeamsListInteractor(
         interactor: DefaultTeamsListInteractor
     ): TeamsListInteractor
+
+    @Binds
+    abstract fun bindStarredTeamsListInteractor(
+        interactor: DefaultStarredTeamsListInteractor
+    ): StarredTeamsListInteractor
 }

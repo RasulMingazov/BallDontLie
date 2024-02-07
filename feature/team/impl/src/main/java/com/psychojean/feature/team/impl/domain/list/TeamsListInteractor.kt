@@ -1,9 +1,9 @@
 package com.psychojean.feature.team.impl.domain.list
 
-import com.psychojean.feature.team.api.domain.model.TeamEntity
+import com.psychojean.feature.team.impl.domain.core.TeamsInteractor
 
-interface TeamsListInteractor {
+internal interface TeamsListInteractor : TeamsInteractor {
 
-    suspend fun teams(): Result<List<TeamEntity>>
+    suspend fun star(teamId: Int, isStarred: Boolean)
 
 }

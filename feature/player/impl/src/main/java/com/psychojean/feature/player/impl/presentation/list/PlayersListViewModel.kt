@@ -52,7 +52,9 @@ internal class PlayersListViewModel @Inject constructor(
     fun retry() = viewModelScope.launch { _event.send(PlayersListEvent.Retry) }
 
     fun refresh() = viewModelScope.launch {
-        _event.send(PlayersListEvent.Refresh)
+        //todo add mediator
+        _event.send(PlayersListEvent.Retry)
+        _event.send(PlayersListEvent.StartRefresh)
         delay(1500)
         _event.send(PlayersListEvent.EndRefresh)
     }

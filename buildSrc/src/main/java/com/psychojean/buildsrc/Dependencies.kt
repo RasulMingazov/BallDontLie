@@ -25,6 +25,12 @@ object Dependencies {
             const val compose = "androidx.paging:paging-compose:${Versions.AndroidX.paging}"
         }
 
+        object Room {
+            const val room = "androidx.room:room-runtime:${Versions.AndroidX.room}"
+            const val compiler = "androidx.room:room-compiler:${Versions.AndroidX.room}"
+            const val ktx = "androidx.room:room-ktx:${Versions.AndroidX.room}"
+        }
+
         object Compose {
             const val activity =
                 "androidx.activity:activity-compose:${Versions.AndroidX.Compose.activity}"
@@ -35,6 +41,7 @@ object Dependencies {
             const val navigation =
                 "androidx.navigation:navigation-compose:${Versions.AndroidX.Compose.navigation}"
 
+            const val material = "androidx.compose.material:material:1.3.1"
             object Material3 {
                 const val material =
                     "androidx.compose.material3:material3:${Versions.AndroidX.Compose.Material3.material}"
@@ -55,6 +62,7 @@ object Dependencies {
     object KotlinX {
         const val coroutine =
             "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.KotlinX.coroutine}"
+        const val immutable = "org.jetbrains.kotlinx:kotlinx-collections-immutable:${Versions.KotlinX.immutable}"
     }
 
     object Dagger {

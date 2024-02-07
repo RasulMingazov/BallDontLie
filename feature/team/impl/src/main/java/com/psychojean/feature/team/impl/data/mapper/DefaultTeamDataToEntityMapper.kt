@@ -14,7 +14,8 @@ internal object DefaultTeamDataToEntityMapper :
             division,
             abbreviation,
             conference,
-            city
+            city,
+            isStarred
         )
     }
 }

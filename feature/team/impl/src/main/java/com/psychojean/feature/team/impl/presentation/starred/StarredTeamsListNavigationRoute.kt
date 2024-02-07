@@ -1,15 +1,14 @@
-package com.psychojean.feature.team.impl.presentation.list
+package com.psychojean.feature.team.impl.presentation.starred
 
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.psychojean.core.impl.presentation.navigation.NavigationRoute
-import com.psychojean.feature.team.impl.presentation.starred.StarredTeamsListNavigationRoute
 
-internal object TeamsListNavigationRoute : NavigationRoute {
+internal object StarredTeamsListNavigationRoute : NavigationRoute {
 
-    override val route: String = "teams"
+    override val route: String = "starredTeams"
 
     override fun register(
         modifier: Modifier,
@@ -17,9 +16,7 @@ internal object TeamsListNavigationRoute : NavigationRoute {
         navController: NavHostController
     ) {
         navGraphBuilder.composable(route) {
-            TeamsListScreen(modifier = modifier) {
-                navController.navigate(StarredTeamsListNavigationRoute.route)
-            }
+            StarredTeamsListScreen(modifier = modifier)
         }
     }
 }

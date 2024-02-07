@@ -6,5 +6,6 @@ data class TeamData(
     val division: String,
     val abbreviation: String,
     val conference: String,
-    val city: String
+    val city: String,
+    val isStarred: Boolean
 )

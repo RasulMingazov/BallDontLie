@@ -16,6 +16,7 @@ object Versions {
         const val android = "1.12.0"
         const val lifecycle = "2.7.0"
         const val paging = "3.2.1"
+        const val room = "2.6.1"
 
         object Compose {
             const val compose = "1.5.4"
@@ -37,6 +38,7 @@ object Versions {
 
     object KotlinX {
         const val coroutine = "1.7.3"
+        const val immutable = "0.3.7"
     }
 
     object Dagger {

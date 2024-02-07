@@ -1,9 +1,11 @@
-package com.psychojean.feature.team.impl.data.remote
+package com.psychojean.feature.team.impl.data.remote.di
 
 import com.psychojean.core.api.exception.ServerExceptionMapper
 import com.psychojean.core.impl.data.exception.di.ServerExceptionQualifier
 import com.psychojean.feature.team.api.data.remote.TeamRemoteDataSource
 import com.psychojean.feature.team.api.data.remote.TeamRemoteToDataMapper
+import com.psychojean.feature.team.impl.data.remote.DefaultTeamRemoteDataSource
+import com.psychojean.feature.team.impl.data.remote.mapper.DefaultTeamRemoteToDataMapper
 import com.psychojean.feature.team.impl.data.remote.service.TeamService
 import com.psychojean.feature.team.impl.data.remote.service.TeamServiceDecorator
 import dagger.Module

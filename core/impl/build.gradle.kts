@@ -53,6 +53,10 @@ android {
         implementation(Dependencies.AndroidX.Compose.preview)
         implementation(Dependencies.AndroidX.Compose.debug)
 
+        api(Dependencies.AndroidX.Room.room)
+        kapt(Dependencies.AndroidX.Room.compiler)
+        implementation(Dependencies.AndroidX.Room.ktx)
+
         implementation(Dependencies.AndroidX.Compose.Material3.material)
         implementation(Dependencies.AndroidX.Compose.Material3.accompanist)
         implementation(Dependencies.AndroidX.Compose.Material3.adaptive)

@@ -27,8 +27,8 @@ import com.psychojean.core.impl.presentation.ui.stub.BallProgressStub
 import com.psychojean.core.impl.presentation.ui.text.PairText
 import com.psychojean.core.impl.presentation.ui.topbar.BallTopBar
 import com.psychojean.feature.player.impl.R
-import com.psychojean.feature.player.impl.presentation.model.PlayerModel
 import com.psychojean.feature.player.impl.presentation.list.footer.AppendFooter
+import com.psychojean.feature.player.impl.presentation.model.PlayerModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -47,10 +47,8 @@ internal fun PlayersListScreen(
         when (playerDetailEvent) {
             is PlayersListEvent.Retry -> playersPagingItems.retry()
             is PlayersListEvent.EndRefresh -> pullToRefreshState.endRefresh()
-            is PlayersListEvent.Refresh -> {
-                pullToRefreshState.startRefresh()
-                playersPagingItems.refresh()
-            }
+            is PlayersListEvent.StartRefresh -> pullToRefreshState.startRefresh()
+            is PlayersListEvent.Refresh -> playersPagingItems.refresh()
         }
     }
 
@@ -59,7 +57,8 @@ internal fun PlayersListScreen(
         content = { padding ->
             RefreshContainer(
                 modifier = Modifier.padding(top = padding.calculateTopPadding()),
-                pullToRefreshState = pullToRefreshState
+                pullToRefreshState = pullToRefreshState,
+                isRefreshAvailable = playersState.isRefreshAvailable
             ) {
                 LazyColumn {
                     listenPagingState(playersPagingItems.loadState, viewModel)

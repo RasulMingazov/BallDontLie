@@ -1,5 +1,6 @@
 package com.psychojean.feature.team.impl.data
 
+import com.psychojean.feature.team.api.data.local.TeamLocalDataSource
 import com.psychojean.feature.team.api.data.model.TeamDataToEntityMapper
 import com.psychojean.feature.team.api.data.remote.TeamRemoteDataSource
 import com.psychojean.feature.team.api.domain.TeamRepository
@@ -19,8 +20,9 @@ internal class TeamDataModule {
     @Provides
     fun provideTeamRepository(
         teamRemoteDataSource: TeamRemoteDataSource,
+        teamLocalDataSource: TeamLocalDataSource,
         teamDataToEntityMapper: TeamDataToEntityMapper
     ): TeamRepository = DefaultTeamRepository(
-        teamRemoteDataSource, teamDataToEntityMapper
+        teamRemoteDataSource, teamLocalDataSource, teamDataToEntityMapper
     )
 }

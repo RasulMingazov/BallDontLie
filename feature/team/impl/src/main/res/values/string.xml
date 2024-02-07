@@ -4,4 +4,9 @@
     <string name="city">City</string>
     <string name="conference">Conference</string>
     <string name="division">Division</string>
+    <string name="starred">Starred</string>
+    <string name="more">More</string>
+    <string name="star">Star</string>
+    <string name="remove">Remove</string>
+    <string name="there_is_nothing_yet">There is nothing here yet</string>
 </resources>
