@@ -4,55 +4,42 @@ import com.psychojean.feature.player.api.data.model.height.HeightDataToEntityMap
 import com.psychojean.feature.player.api.data.model.player.PlayerDataToEntityMapper
 import com.psychojean.feature.player.api.data.model.position.PositionDataToEntityMapper
 import com.psychojean.feature.player.api.data.model.weight.WeightDataToEntityMapper
-import com.psychojean.feature.player.api.data.remote.PlayerRemoteDataSource
 import com.psychojean.feature.player.api.domain.PlayerRepository
 import com.psychojean.feature.player.impl.data.mapper.DefaultHeightDataToEntityMapper
 import com.psychojean.feature.player.impl.data.mapper.DefaultPlayerDataToEntityMapper
 import com.psychojean.feature.player.impl.data.mapper.DefaultPositionDataToEntityMapper
 import com.psychojean.feature.player.impl.data.mapper.DefaultWeightDataToEntityMapper
-import com.psychojean.feature.team.api.data.model.TeamDataToEntityMapper
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
-internal class PlayerDataModule {
+internal abstract class PlayerDataModule {
 
+    @Binds
+    abstract fun bindPlayerRepository(
+        playerRepository: DefaultPlayerRepository
+    ): PlayerRepository
 
-    @Provides
-    fun providePositionDataToEntityMapper(): PositionDataToEntityMapper =
-        DefaultPositionDataToEntityMapper()
+    @Binds
+    abstract fun bindPositionDataToEntityMapper(
+        positionDataToEntityMapper: DefaultPositionDataToEntityMapper
+    ): PositionDataToEntityMapper
 
-    @Provides
-    fun provideHeightDataToEntityMapper(): HeightDataToEntityMapper =
-        DefaultHeightDataToEntityMapper()
+    @Binds
+    abstract fun bindHeightDataToEntityMapper(
+        heightDataToEntityMapper: DefaultHeightDataToEntityMapper
+    ): HeightDataToEntityMapper
 
-    @Provides
-    fun provideWeightDataToEntityMapper(): WeightDataToEntityMapper =
-        DefaultWeightDataToEntityMapper()
+    @Binds
+    abstract fun bindWeightDataToEntityMapper(
+        weightDataToEntityMapper: DefaultWeightDataToEntityMapper
+    ): WeightDataToEntityMapper
 
-    @Provides
-    fun providePlayerDataToEntityMapper(
-        positionDataToEntityMapper: PositionDataToEntityMapper,
-        heightDataToEntityMapper: HeightDataToEntityMapper,
-        weightDataToEntityMapper: WeightDataToEntityMapper,
-        teamDataToEntityMapper: TeamDataToEntityMapper
-    ): PlayerDataToEntityMapper =
-        DefaultPlayerDataToEntityMapper(
-            positionDataToEntityMapper,
-            heightDataToEntityMapper,
-            weightDataToEntityMapper,
-            teamDataToEntityMapper
-        )
-
-
-    @Provides
-    fun providePlayerRepository(
-        playerRemoteDataSource: PlayerRemoteDataSource,
-        playerDataToEntityMapper: PlayerDataToEntityMapper
-    ): PlayerRepository = DefaultPlayerRepository(
-        playerRemoteDataSource, playerDataToEntityMapper
-    )
+    @Binds
+    abstract fun bindPlayerDataToEntityMapper(
+        playerDataToEntityMapper: DefaultPlayerDataToEntityMapper
+    ): PlayerDataToEntityMapper
 }

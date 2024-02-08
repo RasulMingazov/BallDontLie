@@ -1,19 +1,19 @@
 package com.psychojean.feature.player.impl.presentation.di
 
-import com.psychojean.core.api.TextProvider
-import com.psychojean.feature.player.impl.presentation.model.mapper.DefaultPlayerEntityToModelMapper
-import com.psychojean.feature.player.impl.presentation.model.mapper.PlayerEntityToModelMapper
+import com.psychojean.feature.player.impl.presentation.model.DefaultPlayerEntityToModelMapper
+import com.psychojean.feature.player.impl.presentation.model.PlayerEntityToModelMapper
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
-internal class PlayerPresentationModule {
+internal abstract class PlayerPresentationModule {
 
-    @Provides
-    fun providePlayerEntityToModelMapper(textProvider: TextProvider): PlayerEntityToModelMapper =
-        DefaultPlayerEntityToModelMapper(textProvider)
+    @Binds
+    abstract fun bindPlayerEntityToModelMapper(
+        playerEntityToModelMapper: DefaultPlayerEntityToModelMapper
+    ): PlayerEntityToModelMapper
 
 }

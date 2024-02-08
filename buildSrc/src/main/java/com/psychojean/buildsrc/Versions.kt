@@ -55,5 +55,7 @@ object Versions {
     }
 
     const val moshi = "1.14.0"
+    const val mviKotlin = "3.3.0"
+    const val gson = "2.9.0"
 
 }

@@ -60,7 +60,7 @@ dependencies {
     api(project(":feature:team:api"))
 
     implementation(Dependencies.AndroidX.coreKtx)
-    implementation(Dependencies.AndroidX.lifecycleKtx)
+    implementation(Dependencies.AndroidX.Lifecycle.lifecycleKtx)
 
     implementation(Dependencies.AndroidX.Compose.activity)
     implementation(Dependencies.AndroidX.Compose.ui)

@@ -5,7 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.psychojean.core.impl.presentation.navigation.NavigationRoute
-import com.psychojean.feature.player.impl.presentation.detail.PlayerDetailNavigationRoute
+import com.psychojean.feature.player.impl.presentation.detail.PlayerNavigationRoute
 
 internal object PlayersListNavigationRoute : NavigationRoute {
 
@@ -19,7 +19,7 @@ internal object PlayersListNavigationRoute : NavigationRoute {
         navGraphBuilder.composable(route) {
             PlayersListScreen(
                 modifier = modifier,
-                onDetailClick = { id -> navController.navigate(PlayerDetailNavigationRoute.route(id)) { launchSingleTop = true } }
+                onDetailClick = { id -> navController.navigate(PlayerNavigationRoute.route(id)) { launchSingleTop = true } }
             )
         }
     }

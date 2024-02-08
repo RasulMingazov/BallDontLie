@@ -4,7 +4,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import com.psychojean.core.impl.presentation.navigation.NavigationRoute
-import com.psychojean.feature.player.impl.presentation.detail.PlayerDetailNavigationRoute
+import com.psychojean.feature.player.impl.presentation.detail.PlayerNavigationRoute
 import com.psychojean.feature.player.impl.presentation.list.PlayersListNavigationRoute
 
 object PlayerNavigationRoute : NavigationRoute {
@@ -16,7 +16,7 @@ object PlayerNavigationRoute : NavigationRoute {
         navGraphBuilder: NavGraphBuilder,
         navController: NavHostController
     ) {
-        val childRoutes = arrayListOf(PlayersListNavigationRoute, PlayerDetailNavigationRoute)
+        val childRoutes = arrayListOf(PlayersListNavigationRoute, PlayerNavigationRoute)
         childRoutes.forEach { screen ->
             screen.register(
                 modifier = modifier,

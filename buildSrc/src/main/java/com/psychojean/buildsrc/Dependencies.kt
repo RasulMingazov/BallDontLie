@@ -15,8 +15,6 @@ object Dependencies {
 
     object AndroidX {
         const val coreKtx = "androidx.core:core-ktx:${Versions.AndroidX.android}"
-        const val lifecycleKtx =
-            "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.AndroidX.lifecycle}"
 
         object Paging {
             const val runtime = "androidx.paging:paging-runtime:${Versions.AndroidX.paging}"
@@ -29,6 +27,12 @@ object Dependencies {
             const val room = "androidx.room:room-runtime:${Versions.AndroidX.room}"
             const val compiler = "androidx.room:room-compiler:${Versions.AndroidX.room}"
             const val ktx = "androidx.room:room-ktx:${Versions.AndroidX.room}"
+        }
+
+        object Lifecycle {
+            const val lifecycleKtx =
+                "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.AndroidX.lifecycle}"
+            const val compose = "androidx.lifecycle:lifecycle-runtime-compose:${Versions.AndroidX.lifecycle}"
         }
 
         object Compose {
@@ -53,6 +57,13 @@ object Dependencies {
                 const val accompanist = "com.google.accompanist:accompanist-navigation-material:${Versions.AndroidX.Compose.Material3.accompanist}"
             }
         }
+    }
+
+    object MviKotlin {
+        const val mvi = "com.arkivanov.mvikotlin:mvikotlin:${Versions.mviKotlin}"
+        const val main = "com.arkivanov.mvikotlin:mvikotlin-main:${Versions.mviKotlin}"
+        const val coroutines = "com.arkivanov.mvikotlin:mvikotlin-extensions-coroutines:${Versions.mviKotlin}"
+
     }
 
     object JavaX {
@@ -89,5 +100,10 @@ object Dependencies {
         const val kotlin = "com.squareup.moshi:moshi-kotlin:${Versions.moshi}"
         const val retrofit = "com.squareup.retrofit2:converter-moshi:${Versions.SquareUp.retrofit}"
         const val codegen = "com.squareup.moshi:moshi-kotlin-codegen:${Versions.moshi}"
+    }
+
+    object Google {
+        const val gson = "com.google.code.gson:gson:${Versions.gson}"
+
     }
 }

@@ -13,6 +13,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import retrofit2.Retrofit
+import retrofit2.create
 import javax.inject.Named
 
 @Module
@@ -22,7 +23,7 @@ internal class TeamRemoteModule {
     @Provides
     @Named("service")
     fun provideTeamService(@Named("api") retrofit: Retrofit): TeamService =
-        retrofit.create(TeamService::class.java)
+        retrofit.create()
 
     @Provides
     fun provideTeamServiceDecorated(

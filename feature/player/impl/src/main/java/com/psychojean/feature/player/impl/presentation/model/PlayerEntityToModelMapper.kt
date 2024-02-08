@@ -1,13 +1,15 @@
-package com.psychojean.feature.player.impl.presentation.model.mapper
+package com.psychojean.feature.player.impl.presentation.model
 
+import com.psychojean.core.api.Mapper
 import com.psychojean.core.api.TextProvider
 import com.psychojean.feature.player.api.domain.detail.model.HeightEntity
 import com.psychojean.feature.player.api.domain.detail.model.PlayerEntity
 import com.psychojean.feature.player.api.domain.detail.model.PositionEntity
 import com.psychojean.feature.player.api.domain.detail.model.WeightEntity
 import com.psychojean.feature.player.impl.R
-import com.psychojean.feature.player.impl.presentation.model.PlayerModel
 import javax.inject.Inject
+
+internal interface PlayerEntityToModelMapper: Mapper<PlayerEntity, PlayerModel>
 
 internal class DefaultPlayerEntityToModelMapper @Inject constructor(
     private val textProvider: TextProvider

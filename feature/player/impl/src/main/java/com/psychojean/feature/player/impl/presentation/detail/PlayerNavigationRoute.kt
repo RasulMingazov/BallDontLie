@@ -9,7 +9,7 @@ import com.google.accompanist.navigation.material.ExperimentalMaterialNavigation
 import com.google.accompanist.navigation.material.bottomSheet
 import com.psychojean.core.impl.presentation.navigation.NavigationRoute
 
-internal object PlayerDetailNavigationRoute : NavigationRoute {
+internal object PlayerNavigationRoute : NavigationRoute {
 
     const val idArgumentKey = "id"
 
@@ -31,7 +31,7 @@ internal object PlayerDetailNavigationRoute : NavigationRoute {
                 }
             )
         ) {
-            PlayerDetailScreen(
+            PlayerScreen(
                 modifier = modifier,
                 onBackPressed = { navController.popBackStack() }
             )

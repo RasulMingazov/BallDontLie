@@ -7,8 +7,9 @@ import com.psychojean.feature.player.api.data.model.position.PositionDataToEntit
 import com.psychojean.feature.player.api.data.model.weight.WeightDataToEntityMapper
 import com.psychojean.feature.player.api.domain.detail.model.PlayerEntity
 import com.psychojean.feature.team.api.data.model.TeamDataToEntityMapper
+import javax.inject.Inject
 
-internal class DefaultPlayerDataToEntityMapper(
+internal class DefaultPlayerDataToEntityMapper @Inject constructor(
     private val positionDataToEntityMapper: PositionDataToEntityMapper,
     private val heightDataToEntityMapper: HeightDataToEntityMapper,
     private val weightDataToEntityMapper: WeightDataToEntityMapper,

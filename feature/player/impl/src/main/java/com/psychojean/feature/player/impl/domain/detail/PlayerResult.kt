@@ -1,4 +1,4 @@
-package com.psychojean.feature.player.api.domain.detail
+package com.psychojean.feature.player.impl.domain.detail
 
 import com.psychojean.core.api.error.ErrorType
 import com.psychojean.feature.player.api.domain.detail.model.PlayerEntity

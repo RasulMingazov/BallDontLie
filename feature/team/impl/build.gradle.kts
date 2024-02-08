@@ -49,7 +49,7 @@ dependencies {
     api(project(":feature:team:api"))
 
     implementation(Dependencies.AndroidX.coreKtx)
-    implementation(Dependencies.AndroidX.lifecycleKtx)
+    implementation(Dependencies.AndroidX.Lifecycle.lifecycleKtx)
     implementation(Dependencies.AndroidX.Compose.activity)
     implementation(Dependencies.AndroidX.Compose.ui)
     implementation(Dependencies.AndroidX.Compose.preview)
@@ -70,6 +70,10 @@ dependencies {
     implementation(Dependencies.AndroidX.Compose.material)
 
     implementation(Dependencies.JavaX.inject)
+
+    implementation(Dependencies.MviKotlin.mvi)
+    implementation(Dependencies.MviKotlin.main)
+    implementation(Dependencies.MviKotlin.coroutines)
 
     implementation(Dependencies.Dagger.hilt)
     kapt(Dependencies.Dagger.hiltCompiler)

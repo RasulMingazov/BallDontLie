@@ -1,7 +1,7 @@
 package com.psychojean.feature.player.impl.data.remote.service
 
-import com.psychojean.feature.player.api.data.remote.model.PlayerRemote
-import com.psychojean.feature.player.api.data.remote.model.PlayersRemote
+import com.psychojean.feature.player.impl.data.remote.model.PlayerRemote
+import com.psychojean.feature.player.impl.data.remote.model.PlayersRemote
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

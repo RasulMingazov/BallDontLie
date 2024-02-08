@@ -9,7 +9,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,48 +16,47 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.psychojean.core.impl.presentation.effect.EventEffect
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.psychojean.core.impl.presentation.ui.bottom.BallBottomSheet
 import com.psychojean.core.impl.presentation.ui.stub.BallErrorStub
 import com.psychojean.core.impl.presentation.ui.stub.BallProgressStub
 import com.psychojean.core.impl.presentation.ui.text.PairText
 import com.psychojean.feature.player.impl.R
-import com.psychojean.feature.player.impl.presentation.detail.state.PlayerDetailEvent
 import com.psychojean.feature.player.impl.presentation.model.PlayerModel
 
 @Composable
-internal fun PlayerDetailScreen(
+internal fun PlayerScreen(
     modifier: Modifier = Modifier,
-    viewModel: PlayerDetailViewModel = hiltViewModel<PlayerDetailViewModel>(),
+    viewModel: PlayerViewModel = hiltViewModel<PlayerViewModel>(),
     onBackPressed: () -> Unit
 ) {
-    val playerState by viewModel.state.collectAsState()
-
-    EventEffect(flow = viewModel.event) { playerDetailEvent ->
-        when (playerDetailEvent) {
-            is PlayerDetailEvent.Dismiss -> onBackPressed()
-        }
-    }
+    val playerState by viewModel.state.collectAsStateWithLifecycle()
 
     BallBottomSheet(
         modifier = modifier,
-        onDismissRequest = viewModel::dismiss
-    ) {
-        when {
-            playerState.player != null -> Player(player = playerState.player!!)
-            playerState.isLoading -> BallProgressStub(modifier = modifier)
-            playerState.error != null -> BallErrorStub(
-                errorType = playerState.error!!,
-                isButtonLoading = playerState.isRetry,
-                onButtonClick = viewModel::retry
-            )
-        }
+        onDismissRequest = onBackPressed
+    ) { PlayerContent(playerState, viewModel) }
+}
+
+@Composable
+private fun PlayerContent(
+    playerState: PlayerUiState,
+    viewModel: PlayerViewModel
+) {
+    when {
+        playerState.player != null -> PlayerDetail(player = playerState.player)
+        playerState.isLoading -> BallProgressStub()
+        playerState.error != null -> BallErrorStub(
+            errorType = playerState.error,
+            isButtonLoading = playerState.isRetry,
+            onButtonClick = viewModel::retry
+        )
     }
 }
 
 
 @Composable
-private fun Player(modifier: Modifier = Modifier, player: PlayerModel) {
+internal fun PlayerDetail(modifier: Modifier = Modifier, player: PlayerModel) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -98,7 +96,7 @@ private fun Player(modifier: Modifier = Modifier, player: PlayerModel) {
 @Composable
 @Preview(showSystemUi = true, showBackground = true)
 private fun PlayerPreview() {
-    Player(
+    PlayerDetail(
         player = PlayerModel(
             0,
             "Tyler Dorsey",
