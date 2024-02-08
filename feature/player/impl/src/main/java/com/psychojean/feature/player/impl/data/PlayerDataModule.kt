@@ -16,30 +16,30 @@ import dagger.hilt.android.components.ViewModelComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
-internal abstract class PlayerDataModule {
+internal interface PlayerDataModule {
 
     @Binds
-    abstract fun bindPlayerRepository(
+    fun bindPlayerRepository(
         playerRepository: DefaultPlayerRepository
     ): PlayerRepository
 
     @Binds
-    abstract fun bindPositionDataToEntityMapper(
+    fun bindPositionDataToEntityMapper(
         positionDataToEntityMapper: DefaultPositionDataToEntityMapper
     ): PositionDataToEntityMapper
 
     @Binds
-    abstract fun bindHeightDataToEntityMapper(
+    fun bindHeightDataToEntityMapper(
         heightDataToEntityMapper: DefaultHeightDataToEntityMapper
     ): HeightDataToEntityMapper
 
     @Binds
-    abstract fun bindWeightDataToEntityMapper(
+    fun bindWeightDataToEntityMapper(
         weightDataToEntityMapper: DefaultWeightDataToEntityMapper
     ): WeightDataToEntityMapper
 
     @Binds
-    abstract fun bindPlayerDataToEntityMapper(
+    fun bindPlayerDataToEntityMapper(
         playerDataToEntityMapper: DefaultPlayerDataToEntityMapper
     ): PlayerDataToEntityMapper
 }

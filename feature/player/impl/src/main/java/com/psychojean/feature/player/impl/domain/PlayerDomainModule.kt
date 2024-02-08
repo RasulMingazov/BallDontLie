@@ -11,15 +11,15 @@ import dagger.hilt.android.components.ViewModelComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
-internal abstract class PlayerDomainModule {
+internal interface PlayerDomainModule {
 
     @Binds
-    abstract fun bindPlayerDetailInteractor(
+    fun bindPlayerDetailInteractor(
         interactor: DefaultPlayerDetailInteractor
     ): PlayerDetailInteractor
 
     @Binds
-    abstract fun bindPlayersListInteractor(
+    fun bindPlayersListInteractor(
         interactor: DefaultPlayersListInteractor
     ): PlayersListInteractor
 }

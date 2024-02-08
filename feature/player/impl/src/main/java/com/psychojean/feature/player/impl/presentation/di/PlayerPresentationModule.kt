@@ -9,10 +9,10 @@ import dagger.hilt.android.components.ViewModelComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
-internal abstract class PlayerPresentationModule {
+internal interface PlayerPresentationModule {
 
     @Binds
-    abstract fun bindPlayerEntityToModelMapper(
+    fun bindPlayerEntityToModelMapper(
         playerEntityToModelMapper: DefaultPlayerEntityToModelMapper
     ): PlayerEntityToModelMapper
 

@@ -15,19 +15,20 @@ import javax.inject.Named
 
 @Module
 @InstallIn(ViewModelComponent::class)
-internal abstract class PlayerRemoteModule {
+internal interface PlayerRemoteModule {
 
     @Binds
-    abstract fun bindPlayerRemoteToDataMapper(
+    fun bindPlayerRemoteToDataMapper(
         playerRemoteToDataMapper: DefaultPlayerRemoteToDataMapper
     ): PlayerRemoteToDataMapper
 
     @Binds
-    abstract fun bindPlayerRemoteDataSource(
+    fun bindPlayerRemoteDataSource(
         playerRemoteDataSource: DefaultPlayerRemoteDataSource
     ): PlayerRemoteDataSource
 
     companion object {
+
         @Provides
         @Named("service")
         fun providePlayerService(@Named("api") retrofit: Retrofit): PlayerService =
