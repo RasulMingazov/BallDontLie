@@ -4,8 +4,9 @@ import com.psychojean.feature.team.api.data.model.TeamData
 import com.psychojean.feature.team.api.data.remote.TeamRemoteDataSource
 import com.psychojean.feature.team.api.data.remote.TeamRemoteToDataMapper
 import com.psychojean.feature.team.impl.data.remote.service.TeamService
+import javax.inject.Inject
 
-internal class DefaultTeamRemoteDataSource(
+internal class DefaultTeamRemoteDataSource @Inject constructor(
     private val teamService: TeamService,
     private val teamRemoteToDataMapper: TeamRemoteToDataMapper
 ): TeamRemoteDataSource {

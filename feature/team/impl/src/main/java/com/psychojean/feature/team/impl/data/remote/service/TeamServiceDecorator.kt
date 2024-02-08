@@ -3,7 +3,7 @@ package com.psychojean.feature.team.impl.data.remote.service
 import com.psychojean.core.api.exception.ServerExceptionMapper
 import com.psychojean.core.impl.data.BaseApiDecorator
 import com.psychojean.feature.team.api.data.remote.model.TeamRemote
-import com.psychojean.feature.team.api.data.remote.model.TeamsRemote
+import com.psychojean.feature.team.impl.data.remote.model.TeamsRemote
 
 internal class TeamServiceDecorator(
     private val service: TeamService,

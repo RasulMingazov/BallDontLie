@@ -56,11 +56,10 @@ dependencies {
     implementation(Dependencies.AndroidX.Compose.debug)
 
     implementation(Dependencies.SquareUp.retrofit)
-    implementation(Dependencies.Moshi.moshi)
-    implementation(Dependencies.Moshi.kotlin)
-    kapt(Dependencies.Moshi.codegen)
 
     implementation(Dependencies.AndroidX.Compose.navigation)
+
+    implementation(Dependencies.Moshi.retrofit)
 
     implementation(Dependencies.AndroidX.Compose.Material3.material)
     implementation(Dependencies.AndroidX.Compose.Material3.window)
@@ -70,10 +69,6 @@ dependencies {
     implementation(Dependencies.AndroidX.Compose.material)
 
     implementation(Dependencies.JavaX.inject)
-
-    implementation(Dependencies.MviKotlin.mvi)
-    implementation(Dependencies.MviKotlin.main)
-    implementation(Dependencies.MviKotlin.coroutines)
 
     implementation(Dependencies.Dagger.hilt)
     kapt(Dependencies.Dagger.hiltCompiler)

@@ -10,4 +10,6 @@ interface TeamRepository {
 
     suspend fun star(teamId: Int, isStarred: Boolean)
 
+    suspend fun starredTeamsCount(): Int
+
 }

@@ -11,15 +11,15 @@ import dagger.hilt.android.components.ViewModelComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
-internal abstract class TeamDomainModule {
+internal interface TeamDomainModule {
 
     @Binds
-    abstract fun bindTeamsListInteractor(
+    fun bindTeamsListInteractor(
         interactor: DefaultTeamsListInteractor
     ): TeamsListInteractor
 
     @Binds
-    abstract fun bindStarredTeamsListInteractor(
+    fun bindStarredTeamsListInteractor(
         interactor: DefaultStarredTeamsListInteractor
     ): StarredTeamsListInteractor
 }

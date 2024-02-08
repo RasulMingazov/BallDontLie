@@ -1,9 +1,7 @@
 package com.psychojean.feature.team.api.data.remote.model
 
 import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
 
-@JsonClass(generateAdapter = true)
 data class TeamRemote(
     @Json(name = "id") val id: Int,
     @Json(name = "full_name") val fullName: String,

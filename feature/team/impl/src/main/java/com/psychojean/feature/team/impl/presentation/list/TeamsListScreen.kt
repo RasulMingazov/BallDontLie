@@ -36,6 +36,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.psychojean.core.api.error.ErrorType
 import com.psychojean.core.impl.presentation.effect.EventEffect
 import com.psychojean.core.impl.presentation.refresh.RefreshContainer
 import com.psychojean.core.impl.presentation.ui.stub.BallErrorStub
@@ -58,9 +59,7 @@ internal fun TeamsListScreen(
     val pullToRefreshState = rememberPullToRefreshState()
     if (pullToRefreshState.isRefreshing) viewModel.refresh()
 
-    LaunchedEffect(Unit) {
-        viewModel.load()
-    }
+    LaunchedEffect(Unit) { viewModel.load() }
 
     EventEffect(flow = viewModel.event) { playerDetailEvent ->
         when (playerDetailEvent) {
@@ -77,36 +76,60 @@ internal fun TeamsListScreen(
                 pullToRefreshState = pullToRefreshState,
                 isRefreshAvailable = teamsState.isRefreshAvailable
             ) {
-                LazyColumn(modifier = Modifier) {
-                    item {
-                        when {
-                            teamsState.isLoading -> BallProgressStub(Modifier.fillParentMaxSize())
-                            teamsState.error != null -> BallErrorStub(
-                                modifier = Modifier.fillParentMaxSize(),
-                                errorType = teamsState.error!!,
-                                isButtonLoading = teamsState.isRetry,
-                                onButtonClick = viewModel::retry
-                            )
-                        }
-                    }
-
-                    if (teamsState.teams != null) {
-                        item { StarredTeamsCell(onStarredClick = onStarredClick) }
-                        items(
-                            items = teamsState.teams!!,
-                            key = { team -> team.id }
-                        ) { team ->
-                            TeamCell(team = team, onStarTeamClick = viewModel::star)
-                        }
-                    }
-                }
+                TeamsContent(
+                    teamsState = teamsState,
+                    onStarredClick = onStarredClick,
+                    onErrorClick = viewModel::retry,
+                    onStarTeamClick = viewModel::star
+                )
             }
         }
     )
 }
 
 @Composable
-private fun StarredTeamsCell(modifier: Modifier = Modifier, onStarredClick: () -> Unit = {}) {
+private fun TeamsContent(
+    modifier: Modifier = Modifier,
+    teamsState: TeamsListUiState,
+    onStarredClick: () -> Unit,
+    onErrorClick: (errorType: ErrorType) -> Unit,
+    onStarTeamClick: (id: Int, isStarred: Boolean) -> Unit
+) {
+    LazyColumn(modifier = modifier) {
+        when {
+            teamsState.isLoading -> item { BallProgressStub(Modifier.fillParentMaxSize()) }
+            teamsState.isTeamsEmpty -> item { EmptyList(Modifier.fillParentMaxSize()) }
+            teamsState.error != null -> item {
+                BallErrorStub(
+                    modifier = Modifier.fillParentMaxSize(),
+                    errorType = teamsState.error,
+                    isButtonLoading = teamsState.isRetry,
+                    onButtonClick = onErrorClick
+                )
+            }
+
+            teamsState.teams != null -> {
+                if (teamsState.starredTeamsCount != null)
+                    item {
+                        StarredTeamsCell(
+                            starredItemsCount = teamsState.starredTeamsCount,
+                            onStarredClick = onStarredClick
+                        )
+                    }
+                items(items = teamsState.teams, key = { team -> team.id }) { team ->
+                    TeamCell(team = team, onStarTeamClick = onStarTeamClick)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun StarredTeamsCell(
+    modifier: Modifier = Modifier,
+    starredItemsCount: String,
+    onStarredClick: () -> Unit = {}
+) {
     Row(
         modifier = modifier
             .clickable { onStarredClick() }
@@ -118,52 +141,13 @@ private fun StarredTeamsCell(modifier: Modifier = Modifier, onStarredClick: () -
             modifier = Modifier
                 .weight(1f)
                 .align(Alignment.CenterVertically),
-            text = stringResource(id = R.string.starred),
+            text = starredItemsCount,
             textAlign = TextAlign.Start
         )
         Icon(
             imageVector = Icons.AutoMirrored.Default.KeyboardArrowRight,
             contentDescription = stringResource(id = R.string.starred)
         )
-    }
-}
-
-@Composable
-private fun TeamCellHeader(
-    modifier: Modifier = Modifier,
-    team: TeamModel,
-    onStarTeamClick: (id: Int, isStarred: Boolean) -> Unit
-) {
-    var showMenu by remember { mutableStateOf(false) }
-    Row(modifier = modifier.padding(vertical = 4.dp)) {
-        Text(
-            modifier = Modifier
-                .weight(1f)
-                .align(Alignment.CenterVertically),
-            text = team.name,
-            textAlign = TextAlign.Start,
-            style = MaterialTheme.typography.titleMedium,
-        )
-        Box(contentAlignment = Alignment.TopEnd) {
-            Icon(
-                modifier = Modifier.clickable { showMenu = true },
-                imageVector = Icons.Default.MoreVert,
-                contentDescription = stringResource(id = R.string.more)
-            )
-            if (showMenu) {
-                DropdownMenu(
-                    onDismissRequest = { showMenu = false },
-                    expanded = showMenu,
-                ) {
-                    DropdownMenuItem(
-                        text = { Text(text = stringResource(id = if (team.isStarred) R.string.remove else R.string.star)) },
-                        onClick = {
-                            showMenu = false
-                            onStarTeamClick(team.id, !team.isStarred)
-                        })
-                }
-            }
-        }
     }
 }
 
@@ -201,6 +185,53 @@ internal fun TeamCell(
                 )
             }
         }
+    }
+}
+
+@Composable
+private fun TeamCellHeader(
+    modifier: Modifier = Modifier,
+    team: TeamModel,
+    onStarTeamClick: (id: Int, isStarred: Boolean) -> Unit
+) {
+    var showMenu by remember { mutableStateOf(false) }
+    Row(modifier = modifier.padding(vertical = 4.dp)) {
+        Text(
+            modifier = Modifier.weight(1f),
+            text = team.name,
+            textAlign = TextAlign.Start,
+            style = MaterialTheme.typography.titleMedium,
+        )
+        Box(contentAlignment = Alignment.TopEnd) {
+            Icon(
+                modifier = Modifier.clickable { showMenu = true },
+                imageVector = Icons.Default.MoreVert,
+                contentDescription = stringResource(id = R.string.more)
+            )
+            if (showMenu) {
+                DropdownMenu(
+                    onDismissRequest = { showMenu = false },
+                    expanded = showMenu,
+                ) {
+                    DropdownMenuItem(
+                        text = { Text(text = stringResource(id = if (team.isStarred) R.string.remove else R.string.star)) },
+                        onClick = {
+                            showMenu = false
+                            onStarTeamClick(team.id, !team.isStarred)
+                        })
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun EmptyList(modifier: Modifier = Modifier) {
+    Box(modifier = modifier) {
+        Text(
+            modifier = Modifier.align(Alignment.Center),
+            text = stringResource(id = R.string.there_is_nothing_yet)
+        )
     }
 }
 

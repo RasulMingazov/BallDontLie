@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.psychojean.core.api.error.ErrorType
 import com.psychojean.feature.team.impl.domain.list.TeamsListInteractor
 import com.psychojean.feature.team.impl.domain.list.TeamsResult
+import com.psychojean.feature.team.impl.presentation.model.mapper.StarredTeamsMapper
 import com.psychojean.feature.team.impl.presentation.model.mapper.TeamEntityToModelMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -18,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 internal class TeamsListViewModel @Inject constructor(
     private val teamsListInteractor: TeamsListInteractor,
-    private val teamEntityToModelMapper: TeamEntityToModelMapper
+    private val teamEntityToModelMapper: TeamEntityToModelMapper,
+    private val starredTeamsMapper: StarredTeamsMapper
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(TeamsListUiState())
@@ -27,31 +29,31 @@ internal class TeamsListViewModel @Inject constructor(
     private val _event = Channel<TeamsListEvent>()
     val event = _event.receiveAsFlow()
 
-    fun load() = viewModelScope.launch { fetch() }
+    fun load() = viewModelScope.launch { fetchTeams() }
+
+    fun retry(errorType: ErrorType) = viewModelScope.launch {
+        _state.update { uiState -> uiState.copyToRetry(errorType) }
+        fetchTeams()
+    }
 
     fun refresh() = viewModelScope.launch {
         _event.send(TeamsListEvent.Refresh)
-        fetch()
+        fetchTeams()
         _event.send(TeamsListEvent.EndRefresh)
     }
 
-    fun retry(errorType: ErrorType) = viewModelScope.launch {
-        _state.update { uiState -> uiState.toRetry(errorType) }
-        fetch()
-    }
-
     fun star(teamId: Int, isStarred: Boolean) = viewModelScope.launch {
-        teamsListInteractor.star(teamId, isStarred)
-        _state.value.teams?.onEach { team -> if (team.id == teamId) team.isStarred = isStarred }
+        if (teamsListInteractor.star(teamId, isStarred).isSuccess) fetchTeams()
     }
 
-    private suspend fun fetch() = _state.update { uiState ->
+    private suspend fun fetchTeams() = _state.update { uiState ->
         when (val teamsResult = teamsListInteractor.teams()) {
-            is TeamsResult.Error -> uiState.toError(teamsResult.errorType)
-            is TeamsResult.Success -> uiState.toTeams(
-                teamsResult.teams.map(teamEntityToModelMapper::map)
+            is TeamsResult.Error -> uiState.copyToError(teamsResult.errorType)
+            is TeamsResult.Empty -> uiState.copyToEmpty()
+            is TeamsResult.Success -> uiState.copyToTeams(
+                teamsResult.teams.map(teamEntityToModelMapper::map),
+                starredTeamsMapper.map(teamsResult.starredTeamsCount)
             )
-            is TeamsResult.Empty -> uiState.toEmpty()
         }
     }
 }

@@ -15,4 +15,6 @@ interface TeamLocalDataSource {
     suspend fun teams(): List<TeamData>
 
     suspend fun starredTeams(): List<TeamData>
+
+    suspend fun starredTeamsCount(): Int
 }

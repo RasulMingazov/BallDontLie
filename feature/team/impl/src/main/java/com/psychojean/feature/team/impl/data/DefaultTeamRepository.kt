@@ -8,8 +8,9 @@ import com.psychojean.feature.team.api.domain.TeamRepository
 import com.psychojean.feature.team.api.domain.model.TeamEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-internal class DefaultTeamRepository(
+internal class DefaultTeamRepository @Inject constructor(
     private val teamRemoteDataSource: TeamRemoteDataSource,
     private val teamLocalDataSource: TeamLocalDataSource,
     private val teamDataToEntityMapper: TeamDataToEntityMapper
@@ -28,4 +29,7 @@ internal class DefaultTeamRepository(
     override suspend fun star(teamId: Int, isStarred: Boolean) = withContext(Dispatchers.IO) {
         teamLocalDataSource.star(teamId, isStarred)
     }
+
+    override suspend fun starredTeamsCount(): Int =
+        withContext(Dispatchers.IO) { teamLocalDataSource.starredTeamsCount() }
 }

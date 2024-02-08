@@ -10,7 +10,7 @@ import com.psychojean.feature.team.api.data.remote.TeamRemoteToDataMapper
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
-interface PlayerRemoteToDataMapper: Mapper<PlayerRemote, PlayerData>
+internal interface PlayerRemoteToDataMapper: Mapper<PlayerRemote, PlayerData>
 
 internal class DefaultPlayerRemoteToDataMapper @Inject constructor(
     private val teamRemoteToDataMapper: TeamRemoteToDataMapper

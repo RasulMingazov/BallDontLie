@@ -26,4 +26,7 @@ interface TeamDao {
 
     @Query("DELETE FROM TeamLocal")
     suspend fun clear()
+
+    @Query("SELECT COUNT(*) FROM TeamLocal WHERE isStarred =:isStarred")
+    fun starredTeamsCount(isStarred: Boolean = true): Int
 }

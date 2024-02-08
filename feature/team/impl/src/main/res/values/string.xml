@@ -9,4 +9,5 @@
     <string name="star">Star</string>
     <string name="remove">Remove</string>
     <string name="there_is_nothing_yet">There is nothing here yet</string>
+    <string name="starred_value">%s starred</string>
 </resources>
