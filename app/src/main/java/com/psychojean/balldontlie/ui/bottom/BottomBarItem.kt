@@ -22,7 +22,6 @@ fun RowScope.BottomBarItem(
         modifier = modifier,
         selected = currentRoute == tab.route,
         onClick = {
-            println("TEST_TAG ${currentRoute} ${tab.route}")
             if (currentRoute != tab.route)
                 navController.navigate(tab.route) {
                     popUpTo(navController.graph.startDestinationId) {

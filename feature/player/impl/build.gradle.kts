@@ -58,9 +58,7 @@ dependencies {
     implementation(Dependencies.AndroidX.Compose.debug)
 
     implementation(Dependencies.SquareUp.retrofit)
-    implementation(Dependencies.Moshi.moshi)
-    implementation(Dependencies.Moshi.kotlin)
-    kapt(Dependencies.Moshi.codegen)
+    implementation(Dependencies.Moshi.retrofit)
 
     implementation(Dependencies.AndroidX.Compose.navigation)
 
