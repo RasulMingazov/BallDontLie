@@ -7,7 +7,7 @@ BallDontLie is a cutting-edge Android application that brings the world of baske
 BallDontLie leverages a range of powerful technologies to provide users with an exceptional experience:
 
 * **Clean Architecture:** A robust architectural approach for scalable and maintainable code.
-* * **Multimodule:** Modular development for better organization and scalability.
+* **Multimodule:** Modular development for better organization and scalability.
 * **MVVM (Model-View-ViewModel):** An architectural pattern for a clear separation of concerns.
 * **Jetpack Compose:** The modern Android UI toolkit for building native UIs.
 * **Navigation Component:** Simplifies navigation and ensures a smooth user journey.
