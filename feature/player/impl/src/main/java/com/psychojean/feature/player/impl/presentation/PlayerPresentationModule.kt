@@ -1,5 +1,7 @@
-package com.psychojean.feature.player.impl.presentation.di
+package com.psychojean.feature.player.impl.presentation
 
+import com.psychojean.feature.player.impl.presentation.detail.DefaultPlayerToUi
+import com.psychojean.feature.player.impl.presentation.detail.PlayerToUi
 import com.psychojean.feature.player.impl.presentation.model.DefaultPlayerEntityToModelMapper
 import com.psychojean.feature.player.impl.presentation.model.PlayerEntityToModelMapper
 import dagger.Binds
@@ -15,5 +17,10 @@ internal interface PlayerPresentationModule {
     fun bindPlayerEntityToModelMapper(
         playerEntityToModelMapper: DefaultPlayerEntityToModelMapper
     ): PlayerEntityToModelMapper
+
+    @Binds
+    fun bindPlayerToUi(
+        starredTeamsToUi: DefaultPlayerToUi
+    ): PlayerToUi
 
 }

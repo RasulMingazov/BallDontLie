@@ -5,8 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.psychojean.core.api.error.ErrorType
 import com.psychojean.core.impl.presentation.save.SaveStateKey
 import com.psychojean.feature.player.impl.domain.detail.PlayerDetailInteractor
-import com.psychojean.feature.player.impl.domain.detail.PlayerResult
-import com.psychojean.feature.player.impl.presentation.model.PlayerEntityToModelMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 internal class PlayerViewModel @Inject constructor(
     private val playerDetailInteractor: PlayerDetailInteractor,
-    private val playerDetailEntityToModelMapper: PlayerEntityToModelMapper,
+    private val playerToUi: PlayerToUi,
     saveStateKey: SaveStateKey<Int>
 ) : ViewModel() {
 
@@ -36,11 +34,6 @@ internal class PlayerViewModel @Inject constructor(
     }
 
     private suspend fun fetchPlayer() = _state.update { uiState ->
-        when (val playerResult = playerDetailInteractor.player(id)) {
-            is PlayerResult.Error -> uiState.copyToError(playerResult.errorType)
-            is PlayerResult.Success -> uiState.copyToPlayer(
-                playerDetailEntityToModelMapper.map(playerResult.player)
-            )
-        }
+        playerToUi.run { uiState.copyFromResult(playerDetailInteractor.player(id)) }
     }
 }

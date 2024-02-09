@@ -4,9 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.psychojean.core.api.error.ErrorType
 import com.psychojean.feature.team.impl.domain.list.TeamsListInteractor
-import com.psychojean.feature.team.impl.domain.list.TeamsResult
-import com.psychojean.feature.team.impl.presentation.model.mapper.StarredTeamsMapper
-import com.psychojean.feature.team.impl.presentation.model.mapper.TeamEntityToModelMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,8 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 internal class TeamsListViewModel @Inject constructor(
     private val teamsListInteractor: TeamsListInteractor,
-    private val teamEntityToModelMapper: TeamEntityToModelMapper,
-    private val starredTeamsMapper: StarredTeamsMapper
+    private val teamsToUi: TeamsToUi
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(TeamsListUiState())
@@ -47,13 +43,6 @@ internal class TeamsListViewModel @Inject constructor(
     }
 
     private suspend fun fetchTeams() = _state.update { uiState ->
-        when (val teamsResult = teamsListInteractor.teams()) {
-            is TeamsResult.Error -> uiState.copyToError(teamsResult.errorType)
-            is TeamsResult.Empty -> uiState.copyToEmpty()
-            is TeamsResult.Success -> uiState.copyToTeams(
-                teamsResult.teams.map(teamEntityToModelMapper::map),
-                starredTeamsMapper.map(teamsResult.starredTeamsCount)
-            )
-        }
+        teamsToUi.run { uiState.copyFromResult(teamsListInteractor.teams()) }
     }
 }

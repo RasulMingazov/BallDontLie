@@ -8,19 +8,19 @@ internal data class PlayerListUiState(
     val isRefreshAvailable: Boolean = false
 ) {
 
-    fun toError(errorType: ErrorType) = copy(
+    fun copyToError(errorType: ErrorType) = copy(
         isLoading = false,
         error = errorType,
         isRefreshAvailable = false
     )
 
-    fun toLoading() = copy(
+    fun copyToLoading() = copy(
         isLoading = true,
         error = null,
         isRefreshAvailable = false
     )
 
-    fun toLoadingFinished() = copy(
+    fun copyToLoadingFinished() = copy(
         isLoading = false,
         error = null,
         isRefreshAvailable = true
