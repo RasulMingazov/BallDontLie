@@ -1,5 +1,7 @@
 package com.psychojean.feature.team.impl.presentation.starred
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -43,6 +45,8 @@ internal fun StarredTeamsListScreen(
     )
 }
 
+
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun StarredTeamsContent(
     modifier: Modifier = Modifier,
@@ -50,7 +54,7 @@ private fun StarredTeamsContent(
     onErrorClick: (errorType: ErrorType) -> Unit,
     onStarTeamClick: (id: Int) -> Unit
 ) {
-    LazyColumn(modifier = modifier) {
+    LazyColumn(modifier = modifier.fillMaxSize()) {
         when {
             teamsState.isLoading -> item { BallProgressStub(Modifier.fillParentMaxSize()) }
             teamsState.isTeamsEmpty -> item { EmptyList(Modifier.fillParentMaxSize()) }
@@ -65,7 +69,7 @@ private fun StarredTeamsContent(
 
             teamsState.teams != null -> {
                 items(items = teamsState.teams, key = { team -> team.id }) { team ->
-                    TeamCell(team = team, onStarTeamClick = { id, _ -> onStarTeamClick(id) })
+                    TeamCell(modifier = Modifier.animateItemPlacement(), team = team, onStarTeamClick = { id, _ -> onStarTeamClick(id) })
                 }
             }
         }
