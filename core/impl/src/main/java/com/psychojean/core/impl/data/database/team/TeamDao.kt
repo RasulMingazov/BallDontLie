@@ -21,6 +21,9 @@ interface TeamDao {
     @Query("SELECT * FROM TeamLocal")
     fun teams(): List<TeamLocal>
 
+    @Query("SELECT COUNT(*) FROM TeamLocal")
+    fun teamsCount(): Int
+
     @Query("SELECT * FROM TeamLocal WHERE isStarred =:isStarred")
     fun starredTeams(isStarred: Boolean = true): List<TeamLocal>
 

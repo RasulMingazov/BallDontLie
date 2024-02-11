@@ -7,6 +7,8 @@ import com.psychojean.feature.team.api.data.remote.TeamRemoteDataSource
 import com.psychojean.feature.team.api.domain.TeamRepository
 import com.psychojean.feature.team.api.domain.model.TeamEntity
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -16,9 +18,17 @@ internal class DefaultTeamRepository @Inject constructor(
     private val teamDataToEntityMapper: TeamDataToEntityMapper
 ) : TeamRepository, BaseRepository() {
 
+    private var isTeamsFirstCall: Boolean = true
+    private var teamsLock = Mutex()
+
     override suspend fun teams(): List<TeamEntity> = withContext(Dispatchers.IO) {
-        val remoteTeams = teamRemoteDataSource.teams()
-        teamLocalDataSource.insert(remoteTeams)
+        teamsLock.withLock {
+            if (isTeamsFirstCall || teamLocalDataSource.teamsCount() == 0) {
+                isTeamsFirstCall = false
+                teamLocalDataSource.clear()
+                teamLocalDataSource.insert(teamRemoteDataSource.teams())
+            }
+        }
         teamLocalDataSource.teams().map(teamDataToEntityMapper::map)
     }
 

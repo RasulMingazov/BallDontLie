@@ -18,6 +18,8 @@ internal class DefaultTeamLocalDataSource @Inject constructor(
     override suspend fun teams(): List<TeamData> =
         teamDao.teams().map(teamLocalToDataMapper::map)
 
+    override suspend fun teamsCount(): Int = teamDao.teamsCount()
+
     override suspend fun starredTeams(): List<TeamData> =
         teamDao.starredTeams().map(teamLocalToDataMapper::map)
 
