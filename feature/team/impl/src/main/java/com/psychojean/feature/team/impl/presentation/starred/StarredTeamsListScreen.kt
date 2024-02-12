@@ -24,7 +24,8 @@ import com.psychojean.feature.team.impl.presentation.list.TeamCell
 @Composable
 internal fun StarredTeamsListScreen(
     modifier: Modifier,
-    viewModel: StarredTeamsListViewModel = hiltViewModel()
+    viewModel: StarredTeamsListViewModel = hiltViewModel(),
+    onBackPressed: () -> Unit
 ) {
     val teamsState by viewModel.state.collectAsState()
 
@@ -33,7 +34,7 @@ internal fun StarredTeamsListScreen(
     }
 
     Scaffold(modifier = modifier,
-        topBar = { BallTopBar(title = stringResource(id = R.string.teams)) },
+        topBar = { BallTopBar(title = stringResource(id = R.string.teams), onNavigationIconClick = onBackPressed) },
         content = { padding ->
             StarredTeamsContent(
                 modifier = Modifier.padding(top = padding.calculateTopPadding()),

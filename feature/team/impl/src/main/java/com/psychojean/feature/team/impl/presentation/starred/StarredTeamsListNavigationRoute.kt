@@ -16,7 +16,7 @@ internal object StarredTeamsListNavigationRoute : NavigationRoute {
         navController: NavHostController
     ) {
         navGraphBuilder.composable(route) {
-            StarredTeamsListScreen(modifier = modifier)
+            StarredTeamsListScreen(modifier = modifier) { navController.popBackStack() }
         }
     }
 }

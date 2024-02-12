@@ -4,4 +4,5 @@
     <string name="something_went_wrong">Something went wrong</string>
     <string name="check_your_internet_connection_or_try_to_use_vpn">Check your internet connection or try to use VPN</string>
     <string name="refresh">Refresh</string>
+    <string name="back">Back</string>
 </resources>

@@ -32,9 +32,8 @@ internal object PlayerNavigationRoute : NavigationRoute {
             )
         ) {
             PlayerScreen(
-                modifier = modifier,
-                onBackPressed = { navController.popBackStack() }
-            )
+                modifier = modifier
+            ) { navController.popBackStack() }
         }
     }
 }
