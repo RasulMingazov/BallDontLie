@@ -26,6 +26,9 @@
             <option value="$PROJECT_DIR$/core/api" />
             <option value="$PROJECT_DIR$/core/impl" />
             <option value="$PROJECT_DIR$/feature" />
+            <option value="$PROJECT_DIR$/feature/connectivity" />
+            <option value="$PROJECT_DIR$/feature/connectivity/api" />
+            <option value="$PROJECT_DIR$/feature/connectivity/impl" />
             <option value="$PROJECT_DIR$/feature/player" />
             <option value="$PROJECT_DIR$/feature/player/api" />
             <option value="$PROJECT_DIR$/feature/player/impl" />

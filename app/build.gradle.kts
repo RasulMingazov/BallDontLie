@@ -59,6 +59,9 @@ dependencies {
     implementation(project(":feature:team:impl"))
     api(project(":feature:team:api"))
 
+    implementation(project(":feature:connectivity:impl"))
+    api(project(":feature:connectivity:api"))
+
     implementation(Dependencies.AndroidX.coreKtx)
     implementation(Dependencies.AndroidX.Lifecycle.lifecycleKtx)
 

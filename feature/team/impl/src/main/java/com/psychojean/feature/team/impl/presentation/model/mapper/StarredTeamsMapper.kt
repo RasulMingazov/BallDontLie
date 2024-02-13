@@ -5,7 +5,7 @@ import com.psychojean.core.api.TextProvider
 import com.psychojean.feature.team.impl.R
 import javax.inject.Inject
 
-interface StarredTeamsMapper : Mapper<Int, String>
+internal interface StarredTeamsMapper : Mapper<Int, String>
 
 internal class DefaultStarredTeamsMapper @Inject constructor(private val textProvider: TextProvider) : StarredTeamsMapper {
 

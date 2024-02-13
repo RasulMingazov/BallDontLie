@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.padding
@@ -20,6 +21,7 @@ import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
 import com.psychojean.balldontlie.ui.RoutesContainer
 import com.psychojean.balldontlie.ui.bottom.BallNavigationBar
 import com.psychojean.balldontlie.ui.theme.BallDontLieTheme
+import com.psychojean.feature.connectivity.impl.presentation.ConnectivityIndicatorLayout
 import com.psychojean.feature.player.impl.presentation.navigation.PlayerBottomTab
 import com.psychojean.feature.player.impl.presentation.navigation.PlayerNavigationRoute
 import com.psychojean.feature.team.impl.presentation.navigation.TeamBottomTab
@@ -46,10 +48,13 @@ class MainActivity : ComponentActivity() {
 
                 Scaffold(
                     bottomBar = {
-                        BallNavigationBar(
-                            bottomTabs = bottomTabs,
-                            navController = navController
-                        )
+                        Column {
+                            ConnectivityIndicatorLayout()
+                            BallNavigationBar(
+                                bottomTabs = bottomTabs,
+                                navController = navController
+                            )
+                        }
                     },
                     content = { padding ->
                         Box(
